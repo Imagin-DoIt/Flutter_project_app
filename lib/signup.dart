@@ -56,7 +56,7 @@ class _SignupPageState extends State<SignupPage> {
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(_cornerRadius)),
                   padding: EdgeInsets.all(16),
-                  child: Text("로그인", style: TextStyle(color: Colors.white)),
+                  child: Text("회원가입", style: TextStyle(color: Colors.white)),
                 ),
               ),
               Divider(

@@ -1,15 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_core/firebase_core.dart';
+import 'package:project2/trainer/trainer_main.dart';
 import 'login.dart';
 import 'signup.dart';
 import 'reserve.dart';
 import 'home.dart';
 
-
-Future<void> main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+void main() {
   runApp(MyApp());
 }
 
@@ -59,7 +56,18 @@ class AuthTypeSelector extends StatelessWidget {
               RaisedButton(
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(8)),
-                child: Text('홈', style: TextStyle(fontSize: 18)),
+                child: Text('관리자', style: TextStyle(fontSize: 18)),
+                onPressed: () => _pushPage(context, TrainerMainPage()),
+                textColor: Colors.black,
+                color: Colors.grey,
+              ),
+              SizedBox(
+                height: 30.0,
+              ),
+              RaisedButton(
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8)),
+                child: Text('회원', style: TextStyle(fontSize: 18)),
                 onPressed: () => _pushPage(context, HomePage()),
                 textColor: Colors.black,
                 color: Colors.grey,
