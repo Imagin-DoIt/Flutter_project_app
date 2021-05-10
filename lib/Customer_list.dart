@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'list_detail.dart';
 import 'main.dart';
-import 'Q&A2.dart';
+import 'Q_A.dart';
 import 'trainer_main.dart';
 
 class CustomerList extends StatefulWidget {

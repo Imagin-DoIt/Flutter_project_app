@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'Customer_list.dart';
+import 'Q_A.dart';
 import 'main.dart';
 
 class Trainermain extends StatefulWidget {
@@ -29,36 +31,86 @@ class TrainerMainState extends State<Trainermain> {
             elevation: 0.0,
           ),
           drawer: Drawer(
-            child: ListView(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: <Widget>[
+            UserAccountsDrawerHeader(
+              currentAccountPicture: CircleAvatar(
+                backgroundImage: AssetImage('assets/con.png'),
+                backgroundColor: Colors.white,
+              ),
+              otherAccountsPictures: <Widget>[
+                CircleAvatar(
+                  backgroundImage: AssetImage('assets/con.png'),
+                  backgroundColor: Colors.white,
+                ),
+              ],
+              accountName: Text('CONNIE'),
+              accountEmail: Text('rladldud1109@naver.com'),
+              onDetailsPressed: () {
+                print('arrow is clicked');
+              },
+              decoration: BoxDecoration(
+                  color: Colors.red[200],
+                  borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(40.0),
+                      bottomRight: Radius.circular(40.0))),
+            ),
+            ExpansionTile(
+              leading: Icon(
+                Icons.event,
+                color: Colors.grey[850],
+              ),
+              title: Text('스케줄'),
               children: <Widget>[
                 ListTile(
-                    leading: Icon(Icons.calendar_today),
-                    title: Text('스케줄'),
-                    onTap: () {}),
-                ListTile(
-                    leading: Icon(Icons.assignment_ind),
-                    title: Text('명단'),
-                    onTap: () {}),
-                ListTile(
-                    leading: Icon(Icons.article),
-                    title: Text('공지사항'),
-                    onTap: () {}),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: <Widget>[
-                    RaisedButton(
-                        child: Text('로그아웃'),
-                        onPressed: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => Mainscreen()));
-                        })
-                  ],
-                )
-              ],
+                  title:Text('일정'),
+                onTap: () {Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => Trainermain()));}
+                ),ListTile(title:Text('관리'),
+                onTap: () {Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => Trainermain()));}
+                ),
+                ListTile(title:Text('신청현황'),
+                onTap: () {Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => Trainermain()));}
+                ),],
             ),
-          ),
+            ExpansionTile(
+              leading: Icon(
+                Icons.person,
+                color: Colors.grey[850],
+              ),
+              title: Text('회원관리'),
+              children: <Widget>[
+                ListTile(title:Text('명단'),
+                onTap: () {Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => CustomerList()));}
+                ),
+                ListTile(title:Text('Q&A'),
+                onTap: () {Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => QA()));}
+                ),],
+            ),
+            ExpansionTile(
+              leading: Icon(
+                Icons.settings,
+                color: Colors.grey[850],
+              ),
+              title: Text('설정'),
+            ),
+            ListTile(
+              leading: Icon(
+                Icons.exit_to_app,
+                color: Colors.grey[850],
+              ),
+              title: Text('로그아웃'),onTap: () {
+                  Navigator.of(context).push(
+                      MaterialPageRoute(builder: (context) => Mainscreen()));}
+            ),
+          ],
+        ),
+      ),
           body: Center(
               child: Container(
             child: Column(

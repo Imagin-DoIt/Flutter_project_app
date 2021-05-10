@@ -5,7 +5,7 @@ import 'd_record.dart';
 import 'e_record.dart';
 import 'main.dart';
 import 'Customer_list.dart';
-import 'Q&A2.dart';
+import 'Q_A.dart';
 import 'trainer_main.dart';
 
 class ListDetail extends StatefulWidget {

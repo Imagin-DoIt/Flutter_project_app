@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_neat_and_clean_calendar/flutter_neat_and_clean_calendar.dart';
 import 'main.dart';
 import 'Customer_list.dart';
-import 'Q&A2.dart';
+import 'Q_A.dart';
 import 'trainer_main.dart';
 
 class ERecord extends StatefulWidget {
