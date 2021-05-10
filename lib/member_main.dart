@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_calendar_week/flutter_calendar_week.dart';
-
 import 'package:multilevel_drawer/multilevel_drawer.dart';
 import 'member_my_schedule.dart';
 import 'main.dart';
-import 'dart:io';
 import 'member_chart.dart';
 import 'member_reserve.dart';
 
@@ -36,90 +34,104 @@ class MemberMainState extends State<Membermain> {
             centerTitle: true,
             elevation: 0.0,
           ),
-          drawer: MultiLevelDrawer(
-            header: Container(
-              child: Column(children: <Widget>[
-                _createHeader(),
-              ]),
+          drawer: Drawer(
+            child: ListView(
+              padding: EdgeInsets.zero,
+              children: <Widget>[
+                UserAccountsDrawerHeader(
+                  currentAccountPicture: CircleAvatar(
+                    backgroundImage: AssetImage('assets/connie1.png'),
+                    backgroundColor: Colors.white,
+                  ),
+                  otherAccountsPictures: <Widget>[
+                    CircleAvatar(
+                      backgroundImage: AssetImage('assets/connie2.png'),
+                      backgroundColor: Colors.white,
+                    ),
+                  ],
+                  accountName: Text('CONNIE'),
+                  accountEmail: Text('rladldud1109@naver.com'),
+                  onDetailsPressed: () {
+                    print('arrow is clicked');
+                  },
+                  decoration: BoxDecoration(
+                      color: Colors.red[200],
+                      borderRadius: BorderRadius.only(
+                          bottomLeft: Radius.circular(40.0),
+                          bottomRight: Radius.circular(40.0))),
+                ),
+                ExpansionTile(
+                  leading: Icon(
+                    Icons.event,
+                    color: Colors.grey[850],
+                  ),
+                  title: Text('스케줄'),
+                  trailing: Icon(Icons.arrow_drop_down),
+                  children: <Widget>[
+                    ListTile(
+                        title: Text('일정'),
+                        onTap: () {
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => ChartScreen()));
+                        }),
+                    ListTile(
+                        title: Text('관리'),
+                        onTap: () {
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => CalendarScreen()));
+                        }),
+                    ListTile(
+                        title: Text('신청현황'),
+                        onTap: () {
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => Memberreserve()));
+                        }),
+                  ],
+                ),
+                ExpansionTile(
+                  leading: Icon(
+                    Icons.person,
+                    color: Colors.grey[850],
+                  ),
+                  title: Text('기록'),
+                  trailing: Icon(Icons.arrow_drop_down),
+                  children: <Widget>[
+                    ListTile(
+                        title: Text('운동기록'),
+                        onTap: () {
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => Membermain()));
+                        }),
+                    ListTile(
+                        title: Text('식단기록'),
+                        onTap: () {
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => Membermain()));
+                        }),
+                  ],
+                ),
+                ExpansionTile(
+                  leading: Icon(
+                    Icons.settings,
+                    color: Colors.grey[850],
+                  ),
+                  title: Text('설정'),
+                  trailing: Icon(Icons.arrow_drop_down),
+                ),
+                ExpansionTile(
+                    leading: Icon(
+                      Icons.exit_to_app,
+                      color: Colors.grey[850],
+                    ),
+                    title: Text('로그아웃'),
+                    children: <Widget>[
+                      ListTile(onTap: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => Mainscreen()));
+                      })
+                    ]),
+              ],
             ),
-            children: [
-              MLMenuItem(
-                leading: Icon(Icons.event),
-                trailing: Icon(Icons.arrow_right),
-                content: Text(
-                  "스케줄",
-                ),
-                subMenuItems: [
-                  MLSubmenu(
-                      onClick: () {
-                        Navigator.of(context).pop();
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => Memberchart()));
-                      },
-                      submenuContent: Text("일정")),
-                  MLSubmenu(
-                      onClick: () {
-                        Navigator.of(context).pop();
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => Memberreserve()));
-                      },
-                      submenuContent: Text("예약")),
-                  MLSubmenu(
-                      onClick: () {
-                        Navigator.of(context).pop();
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => Membermyschedule()));
-                      },
-                      submenuContent: Text("신청현황")),
-                ],
-                onClick: () {},
-              ),
-              MLMenuItem(
-                leading: Icon(Icons.edit),
-                trailing: Icon(Icons.arrow_right),
-                content: Text(
-                  "기록",
-                ),
-                subMenuItems: [
-                  MLSubmenu(
-                      onClick: () {
-                        Navigator.of(context).pop();
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => Membermain()));
-                      },
-                      submenuContent: Text("식단")),
-                  MLSubmenu(
-                      onClick: () {
-                        Navigator.of(context).pop();
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => Membermain()));
-                      },
-                      submenuContent: Text("운동")),
-                ],
-                onClick: () {},
-              ),
-              MLMenuItem(
-                leading: Icon(Icons.settings),
-                content: Text(
-                  "설정",
-                ),
-                onClick: () {
-                  Navigator.of(context).pop();
-                  Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) => Membermain()));
-                },
-              ),
-              MLMenuItem(
-                leading: Icon(Icons.person),
-                content: Text(
-                  "로그아웃",
-                ),
-                onClick: () {
-                  Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) => Mainscreen()));
-                },
-              ),
-            ],
           ),
           floatingActionButton: FloatingActionButton(
             onPressed: () {
@@ -207,24 +219,5 @@ class MemberMainState extends State<Membermain> {
             ],
           ),
         ));
-  }
-
-  Widget _createHeader() {
-    return UserAccountsDrawerHeader(
-      currentAccountPicture: CircleAvatar(
-        backgroundImage: AssetImage('assets/connie1.jpg'),
-        backgroundColor: Colors.white,
-      ),
-      accountName: Text('CONNIE'),
-      accountEmail: Text('rladldud1109@naver.com'),
-      onDetailsPressed: () {
-        print('arrow is clicked');
-      },
-      decoration: BoxDecoration(
-          color: Colors.blue,
-          borderRadius: BorderRadius.only(
-              bottomLeft: Radius.circular(40.0),
-              bottomRight: Radius.circular(40.0))),
-    );
   }
 }

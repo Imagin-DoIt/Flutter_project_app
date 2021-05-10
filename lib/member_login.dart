@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'member_main.dart';
-import 'dart:io';
 
 class Member extends StatelessWidget {
   // This widget is the root of your application.

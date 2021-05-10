@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'trainer_main.dart';
-import 'dart:io';
 
 class Trainer extends StatelessWidget {
   // This widget is the root of your application.

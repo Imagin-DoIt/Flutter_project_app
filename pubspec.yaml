@@ -41,6 +41,7 @@ dependencies:
   flutter_calendar_week: ^1.1.0
   alert: ^2.0.0
   cool_alert: ^1.1.0
+  boardview:
 
 dev_dependencies:
   flutter_test:

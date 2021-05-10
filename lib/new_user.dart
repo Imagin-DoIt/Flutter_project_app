@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'dart:io';
 
 class Newuser extends StatelessWidget {
   @override
@@ -11,7 +10,7 @@ class Newuser extends StatelessWidget {
       body: Container(
         padding: EdgeInsets.fromLTRB(20, 120, 20, 120),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
             SizedBox(height: 45.0),
             TextFormField(

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'main.dart';
-import 'dart:io';
 
 class Trainermain extends StatefulWidget {
   Trainermain({Key key, this.title}) : super(key: key);
