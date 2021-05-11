@@ -4,11 +4,10 @@ import 'package:flutter/rendering.dart';
 
 // ignore: non_constant_identifier_names
 final PictureLists = [
-  'assets/음식1.jpg',
-  'assets/음식2.jpg',
-  'assets/음식3.jpg',
+  'assets/food1.jpg',
+  'assets/food2.jpg',
+  'assets/food3.jpg',
 ];
-
 
 
 class Eat extends StatefulWidget {

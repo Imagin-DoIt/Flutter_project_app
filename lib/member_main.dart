@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_calendar_week/flutter_calendar_week.dart';
 import 'eat.dart';
-import 'exercise.dart';
+import 'exercisememo.dart';
 import 'member_my_schedule.dart';
 import 'main.dart';
 import 'member_chart.dart';
