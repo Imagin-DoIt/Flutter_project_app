@@ -27,17 +27,17 @@ class _EatState extends State<Eat> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.blue,
         title: Text(
           '식단기록',
-          style: TextStyle(color: Colors.black),
+          style: TextStyle(color: Colors.white),
         ),
         centerTitle: true,
         actions: <Widget>[
           IconButton(
             icon: Icon(
               Icons.add_alert,
-              color: Colors.black,
+              color: Colors.white,
             ),
             onPressed: () {
               print('add_alert button is clicked');
@@ -60,11 +60,11 @@ class _EatState extends State<Eat> {
           ),
           BottomNavigationBarItem(
             title: Text('채팅'),
-            icon: Icon(Icons.assignment),
+            icon: Icon(Icons.chat),
           ),
           BottomNavigationBarItem(
             title: Text('알림'),
-            icon: Icon(Icons.account_circle),
+            icon: Icon(Icons.alarm),
           ),
         ],
       ),

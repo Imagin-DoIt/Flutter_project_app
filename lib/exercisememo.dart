@@ -27,17 +27,17 @@ class ExerciseState extends State<Exercise> {
 Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.blue,
         title: Text(
           '운동기록',
-          style: TextStyle(color: Colors.black),
+          style: TextStyle(color: Colors.white),
         ),
         centerTitle: true,
         actions: <Widget>[
           IconButton(
             icon: Icon(
               Icons.add_alert,
-              color: Colors.black,
+              color: Colors.white,
             ),
             onPressed: () {
               print('add_alert button is clicked');
@@ -86,12 +86,12 @@ Widget build(BuildContext context) {
             icon: Icon(Icons.home),
           ),
           BottomNavigationBarItem(
-            title: Text('메신저'),
-            icon: Icon(Icons.assignment),
+            title: Text('채팅'),
+            icon: Icon(Icons.chat),
           ),
           BottomNavigationBarItem(
-            title: Text('마이페이지'),
-            icon: Icon(Icons.account_circle),
+            title: Text('알림'),
+            icon: Icon(Icons.alarm),
           ),
         ],
       ),
