@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_calendar_week/flutter_calendar_week.dart';
-import 'package:multilevel_drawer/multilevel_drawer.dart';
+import 'eat.dart';
+import 'exercise.dart';
 import 'member_my_schedule.dart';
 import 'main.dart';
 import 'member_chart.dart';
@@ -100,13 +101,13 @@ class MemberMainState extends State<Membermain> {
                         title: Text('운동기록'),
                         onTap: () {
                           Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => Membermain()));
+                              builder: (context) => Exercise()));
                         }),
                     ListTile(
                         title: Text('식단기록'),
                         onTap: () {
                           Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => Membermain()));
+                              builder: (context) => Eat()));
                         }),
                   ],
                 ),
