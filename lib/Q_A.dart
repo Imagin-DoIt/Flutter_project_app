@@ -47,12 +47,12 @@ class QAState extends State<QA> {
           children: <Widget>[
             UserAccountsDrawerHeader(
               currentAccountPicture: CircleAvatar(
-                backgroundImage: AssetImage('assets/con.png'),
+                backgroundImage: AssetImage('assets/connie1.jpg'),
                 backgroundColor: Colors.white,
               ),
               otherAccountsPictures: <Widget>[
                 CircleAvatar(
-                  backgroundImage: AssetImage('assets/con.png'),
+                  backgroundImage: AssetImage('assets/connie2.jpg'),
                   backgroundColor: Colors.white,
                 ),
               ],
