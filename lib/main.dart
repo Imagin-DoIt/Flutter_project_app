@@ -45,6 +45,15 @@ class Mainscreen extends StatelessWidget {
                     );
                   },
                 ),
+                RaisedButton(
+                  child: Text('센터 찾기'),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => Member()),
+                    );
+                  },
+                ),
               ],
             ),
             Row(
