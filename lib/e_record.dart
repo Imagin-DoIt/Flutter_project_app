@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_neat_and_clean_calendar/flutter_neat_and_clean_calendar.dart';
 import 'main.dart';
 import 'Customer_list.dart';
 import 'Q_A.dart';
 import 'trainer_main.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:table_calendar/table_calendar.dart';
+import 'dart:convert';
 
 class ERecord extends StatefulWidget {
   ERecord({Key key, this.title}) : super(key: key);
@@ -14,70 +16,45 @@ class ERecord extends StatefulWidget {
 }
 
 class ERecordState extends State<ERecord> {
-  final Map<DateTime, List<NeatCleanCalendarEvent>> _events = {
-    DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day): [
-      NeatCleanCalendarEvent('운동A',
-          startTime: DateTime(DateTime.now().year, DateTime.now().month,
-              DateTime.now().day, 10, 0),
-          endTime: DateTime(DateTime.now().year, DateTime.now().month,
-              DateTime.now().day, 12, 0),
-          color: Colors.black)
-    ],
-    DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day + 2):
-        [
-      NeatCleanCalendarEvent('운동B',
-          startTime: DateTime(DateTime.now().year, DateTime.now().month,
-              DateTime.now().day+2, 10, 0),
-          endTime: DateTime(DateTime.now().year, DateTime.now().month,
-              DateTime.now().day+2, 12, 0),
-          color: Colors.red),
-      NeatCleanCalendarEvent('운동F',
-          startTime: DateTime(DateTime.now().year, DateTime.now().month,
-              DateTime.now().day+2, 14, 30),
-          endTime: DateTime(DateTime.now().year, DateTime.now().month,
-              DateTime.now().day+2, 17, 0),
-          color: Colors.red[200])
-    ],
-    DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day + 3):
-        [
-      NeatCleanCalendarEvent('운동C',
-          startTime: DateTime(DateTime.now().year, DateTime.now().month,
-              DateTime.now().day+3, 10, 0),
-          endTime: DateTime(DateTime.now().year, DateTime.now().month,
-              DateTime.now().day+3, 12, 0),
-          color: Colors.orange),
-      NeatCleanCalendarEvent('운동D',
-          startTime: DateTime(DateTime.now().year, DateTime.now().month,
-              DateTime.now().day+3, 10, 0),
-          endTime: DateTime(DateTime.now().year, DateTime.now().month,
-              DateTime.now().day+3, 12, 0),
-          color: Colors.orange[300]),
-      NeatCleanCalendarEvent('운동E',
-          startTime: DateTime(DateTime.now().year, DateTime.now().month,
-              DateTime.now().day+3, 10, 0),
-          endTime: DateTime(DateTime.now().year, DateTime.now().month,
-              DateTime.now().day+3, 12, 0),
-          color: Colors.orange[200]),
-      NeatCleanCalendarEvent('운동H',
-          startTime: DateTime(DateTime.now().year, DateTime.now().month,
-              DateTime.now().day+3, 10, 0),
-          endTime: DateTime(DateTime.now().year, DateTime.now().month,
-              DateTime.now().day+3, 12, 0),
-          color: Colors.orange[100]),
-      NeatCleanCalendarEvent('운동J',
-          startTime: DateTime(DateTime.now().year, DateTime.now().month,
-              DateTime.now().day+3, 10, 0),
-          endTime: DateTime(DateTime.now().year, DateTime.now().month,
-              DateTime.now().day+3, 12, 0),
-          color: Colors.orange[50]),
-    ]
-  };
+  CalendarController _controller;
+  Map<DateTime, List<dynamic>> _events;
+  List<dynamic> _selectedEvents;
+  TextEditingController _eventController;
+  SharedPreferences prefs;
 
   @override
   void initState() {
     super.initState();
     _handleNewDate(DateTime(
         DateTime.now().year, DateTime.now().month, DateTime.now().day));
+    _controller = CalendarController();
+    _eventController = TextEditingController();
+    _events = {};
+    _selectedEvents = [];
+    prefsData();
+  }
+
+  prefsData() async {
+    prefs = await SharedPreferences.getInstance();
+    setState(() {
+      _events = Map<DateTime, List<dynamic>>.from(
+          decodeMap(json.decode(prefs.getString("events") ?? "{}")));
+    });
+  }
+
+  Map<String, dynamic> encodeMap(Map<DateTime, dynamic> map) {
+    Map<String, dynamic> newMap = {};
+    map.forEach((key, value) {
+      newMap[key.toString()] = map[key];
+    });
+    return newMap;
+  }
+  Map<DateTime, dynamic> decodeMap(Map<String, dynamic> map) {
+    Map<DateTime, dynamic> newMap = {};
+    map.forEach((key, value) {
+      newMap[DateTime.parse(key)] = map[key];
+    });
+    return newMap;
   }
 
   var _index = 0;
@@ -190,27 +167,83 @@ class ERecordState extends State<ERecord> {
                 )
               ],
             ),
+            actions: [IconButton(icon: Icon(Icons.add), onPressed: _showAddDialog)],
             elevation: 0.0,
           ),
-          body: SafeArea(child: Calendar(
-                    startOnMonday: true,
-                    weekDays: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
-                    events: _events,
-                    isExpandable: true,
-                    eventDoneColor: Colors.green,
-                    selectedColor: Colors.pink,
-                    todayColor: Colors.yellow,
-                    eventColor: Colors.grey,
-                    locale: 'de_De',
-                    todayButtonText: 'Heate',
-                    isExpanded: true,
-                    expandableDateFormat: 'EEEE, DD. MMMM yyyy',
-                    dayOfWeekStyle: TextStyle(
-                        color: Colors.black,
-                        fontWeight: FontWeight.w800,
-                        fontSize: 11),
-                  ),
+          body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            TableCalendar(
+              events: _events,
+              initialCalendarFormat: CalendarFormat.week,
+              calendarStyle: CalendarStyle(
+                  canEventMarkersOverflow: true,
+                  todayColor: Colors.black,
+                  selectedColor: Theme.of(context).primaryColor,
+                  todayStyle: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18.0,
+                      color: Colors.white)),
+              headerStyle: HeaderStyle(
+                centerHeaderTitle: true,
+                formatButtonDecoration: BoxDecoration(
+                  color: Colors.black,
+                  borderRadius: BorderRadius.circular(20.0),
                 ),
+                formatButtonTextStyle: TextStyle(color: Colors.white),
+                formatButtonShowsNext: false,
+              ),
+              startingDayOfWeek: StartingDayOfWeek.monday,
+              onDaySelected: (date, events,holidays) {
+                setState(() {
+                  _selectedEvents = events;
+                });
+              },
+              builders: CalendarBuilders(
+                selectedDayBuilder: (context, date, events) => Container(
+                    margin: const EdgeInsets.all(4.0),
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                        color: Theme.of(context).primaryColor,
+                        borderRadius: BorderRadius.circular(10.0)),
+                    child: Text(
+                      date.day.toString(),
+                      style: TextStyle(color: Colors.white),
+                    )),
+                todayDayBuilder: (context, date, events) => Container(
+                    margin: const EdgeInsets.all(4.0),
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                        color: Colors.orange,
+                        borderRadius: BorderRadius.circular(10.0)),
+                    child: Text(
+                      date.day.toString(),
+                      style: TextStyle(color: Colors.white),
+                    )),
+              ),
+              calendarController: _controller,
+            ),
+            ..._selectedEvents.map((event) => Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Container(
+                height: MediaQuery.of(context).size.height/20,
+                width: MediaQuery.of(context).size.width/2,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(30),
+                    color: Colors.white,
+                    border: Border.all(color: Colors.grey)
+                ),
+                child: Center(
+                    child: Text(event,
+                      style: TextStyle(color: Colors.blue,
+                          fontWeight: FontWeight.bold,fontSize: 16),)
+                ),
+              ),
+            )),
+          ],
+        ),
+      ),
           bottomNavigationBar: BottomNavigationBar(
             onTap: (index) {
               setState(() {
@@ -238,5 +271,38 @@ class ERecordState extends State<ERecord> {
 
   void _handleNewDate(date) {
     print('Date Selected: $date');
+  }
+  _showAddDialog() async {
+    await showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          backgroundColor: Colors.white70,
+          title: Text("Add Events"),
+          content: TextField(
+            controller: _eventController,
+          ),
+          actions: <Widget>[
+            FlatButton(
+              child: Text("Save",style: TextStyle(color: Colors.red,fontWeight: FontWeight.bold),),
+              onPressed: () {
+                if (_eventController.text.isEmpty) return;
+                setState(() {
+                  if (_events[_controller.selectedDay] != null) {
+                    _events[_controller.selectedDay]
+                        .add(_eventController.text);
+                  } else {
+                    _events[_controller.selectedDay] = [
+                      _eventController.text
+                    ];
+                  }
+                  prefs.setString("events", json.encode(encodeMap(_events)));
+                  _eventController.clear();
+                  Navigator.pop(context);
+                });
+
+              },
+            )
+          ],
+        ));
   }
 }
