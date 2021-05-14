@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'center_list.dart';
 import 'new_user.dart';
 import 'Counseling.dart';
 import 'trainer_login.dart';
@@ -50,7 +51,7 @@ class Mainscreen extends StatelessWidget {
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => Member()),
+                      MaterialPageRoute(builder: (context) => CenterList()),
                     );
                   },
                 ),

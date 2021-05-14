@@ -17,7 +17,6 @@ class ListDetail extends StatefulWidget {
 }
 
 class ListDetailState extends State<ListDetail> {
-  String dropdownValue = '현황';
   @override
   void initState() {
     super.initState();
@@ -27,7 +26,6 @@ class ListDetailState extends State<ListDetail> {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
     return MaterialApp(
         title: '명단상세 페이지',
         home: Scaffold(
@@ -117,6 +115,7 @@ class ListDetailState extends State<ListDetail> {
             elevation: 0.0,
           ),
           body: Container(
+            padding: EdgeInsets.fromLTRB(50, 10, 50, 10),
             child: Column(
               children: [
                 RaisedButton(
