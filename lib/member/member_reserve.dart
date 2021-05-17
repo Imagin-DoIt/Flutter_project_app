@@ -1,15 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:alert/alert.dart';
 import 'package:flutter_neat_and_clean_calendar/flutter_neat_and_clean_calendar.dart';
 
-class Memberreserve extends StatefulWidget {
-  Memberreserve({Key key, this.title}) : super(key: key);
-  final String title;
+class Memberreserve extends StatelessWidget {
   @override
-  State<StatefulWidget> createState() => MemberReserveState();
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: '수업 예약',
+      debugShowCheckedModeBanner: false,
+      home: CalendarScreen(),
+    );
+  }
 }
 
-class MemberReserveState extends State<Memberreserve> {
+class CalendarScreen extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() => _CalendarScreenState();
+}
+
+class _CalendarScreenState extends State<CalendarScreen> {
   final Map<DateTime, List<NeatCleanCalendarEvent>> _events = {
     DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day + 1):
         [
@@ -46,46 +54,64 @@ class MemberReserveState extends State<Memberreserve> {
   @override
   void initState() {
     super.initState();
+    // Force selection of today on first load, so that the list of today's events gets shown.
+    _handleNewDate(DateTime(
+        DateTime.now().year, DateTime.now().month, DateTime.now().day));
   }
 
   var _index = 0;
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: '사용자 수업예약 페이지',
-      debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('수업 예약'),
+    return Scaffold(
+      appBar: AppBar(
+        leading: BackButton(color: Colors.black),
+        title: Text('수업 예약'),
+        centerTitle: true,
+        elevation: 0.0,
+      ),
+      body: SafeArea(
+        child: Calendar(
+          startOnMonday: true,
+          weekDays: ['일', '월', '화', '수', '목', '금', '토'],
+          events: _events,
+          isExpandable: true,
+          eventDoneColor: Colors.green,
+          selectedColor: Colors.blue,
+          todayColor: Colors.blue,
+          eventColor: Colors.orange,
+          locale: 'en_US',
+          todayButtonText: 'Move Today',
+          expandableDateFormat: 'yyyy년 MM월 dd일 EEEE',
+          dayOfWeekStyle: TextStyle(
+              color: Colors.black, fontWeight: FontWeight.w800, fontSize: 11),
         ),
-        body: Center(
-          // ignore: deprecated_member_use
-          child: FlatButton(
-            color: Colors.blueAccent,
-            onPressed: () => Alert(message: '수업이 예약되었습니다.').show(),
-            child: Text('예약'),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        onTap: (index) {
+          setState(() {
+            _index = index;
+          });
+        },
+        currentIndex: _index,
+        items: <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            title: Text('홈'),
+            icon: Icon(Icons.home),
           ),
-        ),
-        /*
-        body: SafeArea(
-          child: Calendar(
-            startOnMonday: true,
-            weekDays: ['일', '월', '화', '수', '목', '금', '토'],
-            events: _events,
-            isExpandable: true,
-            eventDoneColor: Colors.green,
-            selectedColor: Colors.blue,
-            todayColor: Colors.blue,
-            eventColor: Colors.orange,
-            locale: 'en_US',
-            todayButtonText: 'Move Today',
-            expandableDateFormat: 'yyyy년 MM월 dd일 EEEE',
-            dayOfWeekStyle: TextStyle(
-                color: Colors.black, fontWeight: FontWeight.w800, fontSize: 11),
+          BottomNavigationBarItem(
+            title: Text('채팅'),
+            icon: Icon(Icons.chat),
           ),
-        ),
-        */
+          BottomNavigationBarItem(
+            title: Text('알림'),
+            icon: Icon(Icons.alarm),
+          ),
+        ],
       ),
     );
+  }
+
+  void _handleNewDate(date) {
+    print('Date selected: $date');
   }
 }

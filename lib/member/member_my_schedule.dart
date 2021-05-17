@@ -6,6 +6,10 @@ class Membermyschedule extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: '신청 현황',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+        visualDensity: VisualDensity.adaptivePlatformDensity,
+      ),
       debugShowCheckedModeBanner: false,
       home: CalendarScreen(),
     );
@@ -13,6 +17,8 @@ class Membermyschedule extends StatelessWidget {
 }
 
 class CalendarScreen extends StatefulWidget {
+  CalendarScreen({Key key, this.title}) : super(key: key);
+  final String title;
   @override
   State<StatefulWidget> createState() => _CalendarScreenState();
 }
@@ -64,9 +70,9 @@ class _CalendarScreenState extends State<CalendarScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: BackButton(color: Colors.black),
         title: Text('신청 현황'),
         centerTitle: true,
-        elevation: 0.0,
       ),
       body: SafeArea(
         child: Calendar(
@@ -112,24 +118,5 @@ class _CalendarScreenState extends State<CalendarScreen> {
 
   void _handleNewDate(date) {
     print('Date selected: $date');
-  }
-
-  Widget _createHeader() {
-    return UserAccountsDrawerHeader(
-      currentAccountPicture: CircleAvatar(
-        backgroundImage: AssetImage('assets/connie1.jpg'),
-        backgroundColor: Colors.white,
-      ),
-      accountName: Text('CONNIE'),
-      accountEmail: Text('rladldud1109@naver.com'),
-      onDetailsPressed: () {
-        print('arrow is clicked');
-      },
-      decoration: BoxDecoration(
-          color: Colors.blue,
-          borderRadius: BorderRadius.only(
-              bottomLeft: Radius.circular(40.0),
-              bottomRight: Radius.circular(40.0))),
-    );
   }
 }

@@ -11,6 +11,7 @@ class Memberchart extends StatelessWidget {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
+      debugShowCheckedModeBanner: false,
       home: ChartScreen(title: 'Flutter Demo Home Page'),
     );
   }
@@ -20,9 +21,7 @@ class ChartScreen extends StatefulWidget {
   ChartScreen({Key key, this.title}) : super(key: key);
   final String title;
    @override
-  State<StatefulWidget> createState() {
-    return _MemberchartState();
-  }
+   State<StatefulWidget> createState() => _MemberchartState();
 }
 
 class _MemberchartState extends State<ChartScreen> {
@@ -77,6 +76,7 @@ class _MemberchartState extends State<ChartScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text('사용자 차트'),
+        centerTitle: true,
       ),
       body: ListView(
         children: [

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_calendar_week/flutter_calendar_week.dart';
+import 'package:flutter_firebase/member/setting.dart';
+import 'Custom_Alert_Dialog.dart';
 import 'eat.dart';
 import 'exercisememo.dart';
 import 'member_my_schedule.dart';
@@ -70,22 +72,22 @@ class MemberMainState extends State<Membermain> {
                   trailing: Icon(Icons.arrow_drop_down),
                   children: <Widget>[
                     ListTile(
-                        title: Text('일정'),
+                        title: Text('사용자 차트'),
                         onTap: () {
                           Navigator.of(context).push(MaterialPageRoute(
                               builder: (context) => ChartScreen()));
                         }),
                     ListTile(
-                        title: Text('관리'),
+                        title: Text('수업예약'),
                         onTap: () {
                           Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => CalendarScreen()));
+                              builder: (context) => Memberreserve()));
                         }),
                     ListTile(
                         title: Text('신청현황'),
                         onTap: () {
                           Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => Memberreserve()));
+                              builder: (context) => Membermyschedule()));
                         }),
                   ],
                 ),
@@ -111,12 +113,16 @@ class MemberMainState extends State<Membermain> {
                         }),
                   ],
                 ),
-                ExpansionTile(
+                ListTile(
                   leading: Icon(
                     Icons.settings,
                     color: Colors.grey[850],
                   ),
                   title: Text('설정'),
+                  onTap: () {
+                          Navigator.of(context).push(
+                              MaterialPageRoute(builder: (context) => Setting()));
+                        }
                 ),
                 ListTile(
                     leading: Icon(
@@ -125,8 +131,7 @@ class MemberMainState extends State<Membermain> {
                     ),
                     title: Text('로그아웃'),
                     onTap: () {
-                      Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => Mainscreen()));
+                      showAlertDialog(context);
                     }
                  ),
               ],
@@ -220,3 +225,16 @@ class MemberMainState extends State<Membermain> {
         ));
   }
 }
+showAlertDialog(BuildContext context) {
+  var dialog = CustomAlertDialog(
+      title: "Logout",
+      message: "Are you sure, do you want to logout?",
+      onPostivePressed: () {
+        Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => Mainscreen()));
+      },
+      positiveBtnText: 'Yes',
+      negativeBtnText: 'No');
+  showDialog(context: context, builder: (BuildContext context) => dialog);
+}
+

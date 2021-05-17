@@ -39,14 +39,14 @@ class Member extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       RaisedButton(
-                        child: Text('로그인'),
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => Membermain()),);
-                        }
-                      ),
+                          child: Text('로그인'),
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => Membermain()),
+                            );
+                          }),
                     ],
                   ),
                 ],
