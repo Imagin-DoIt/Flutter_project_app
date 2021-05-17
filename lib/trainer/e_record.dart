@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'main.dart';
+import '../main.dart';
 import 'Customer_list.dart';
 import 'Q_A.dart';
 import 'trainer_main.dart';

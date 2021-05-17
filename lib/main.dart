@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'center_list.dart';
-import 'new_user.dart';
-import 'Counseling.dart';
-import 'trainer_login.dart';
-import 'member_login.dart';
+import 'First_Page/center_list.dart';
+import 'First_Page/new_user.dart';
+import 'First_Page/Counseling.dart';
+import 'trainer/trainer_login.dart';
+import 'member/member_login.dart';
 
 void main() {
   runApp(MaterialApp(

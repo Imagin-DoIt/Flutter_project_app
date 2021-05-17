@@ -1,19 +1,18 @@
 import 'package:flutter/material.dart';
-import 'main.dart';
-import 'Customer_list.dart';
+import 'list_detail.dart';
+import '../main.dart';
 import 'Q_A.dart';
 import 'trainer_main.dart';
 
-class ProgressStatus extends StatefulWidget {
-  ProgressStatus({Key key, this.title}) : super(key: key);
+class CustomerList extends StatefulWidget {
+  CustomerList({Key key, this.title}) : super(key: key);
   final String title;
 
   @override
-  ProgressStatusState createState() => ProgressStatusState();
+  CustomerListState createState() => CustomerListState();
 }
 
-class ProgressStatusState extends State<ProgressStatus> {
-  String dropdownValue = '현황';
+class CustomerListState extends State<CustomerList> {
   @override
   void initState() {
     super.initState();
@@ -23,10 +22,8 @@ class ProgressStatusState extends State<ProgressStatus> {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
     return MaterialApp(
-        title: '진행현황 페이지',
-        debugShowCheckedModeBanner: false,
+        title: '명단 페이지',
         home: Scaffold(
           drawer: Drawer(
         child: ListView(
@@ -114,17 +111,65 @@ class ProgressStatusState extends State<ProgressStatus> {
               children: [
                 Text('~님', style: TextStyle(fontSize: 25.0)),
                 GestureDetector(
-                  child: Text('진행현황', style: TextStyle(fontSize: 15.0)),
+                  child: Text('명단', style: TextStyle(fontSize: 15.0)),
                 )
               ],
             ),
             elevation: 0.0,
           ),
           body: Container(
+            padding: EdgeInsets.fromLTRB(50, 10, 50, 10),
             child: Column(
               children: [
-                Text('진행현황')
-              ]
+                RaisedButton(
+                    child: Row(
+                      children: [
+                        Icon(Icons.account_circle),
+                        Text('~님'),
+                      ],
+                    ),
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ListDetail()));
+                    },
+                    color: Colors.white,
+                    textColor: Colors.black,
+                    hoverColor: Colors.black87),
+                RaisedButton(
+                    child: Row(
+                      children: [
+                        Icon(Icons.account_circle),
+                        Text('~님'),
+                      ],
+                    ),
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ListDetail()));
+                    },
+                    color: Colors.white,
+                    textColor: Colors.black,
+                    hoverColor: Colors.black87),
+                RaisedButton(
+                    child: Row(
+                      children: [
+                        Icon(Icons.account_circle),
+                        Text('~님'),
+                      ],
+                    ),
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ListDetail()));
+                    },
+                    color: Colors.white,
+                    textColor: Colors.black,
+                    hoverColor: Colors.black87),
+              ],
             ),
           ),
           bottomNavigationBar: BottomNavigationBar(

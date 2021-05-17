@@ -3,7 +3,7 @@ import 'Progress_status.dart';
 import 'current_situation.dart';
 import 'd_record.dart';
 import 'e_record.dart';
-import 'main.dart';
+import '../main.dart';
 import 'Customer_list.dart';
 import 'Q_A.dart';
 import 'trainer_main.dart';

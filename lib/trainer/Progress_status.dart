@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
+import '../main.dart';
 import 'Customer_list.dart';
 import 'Q_A.dart';
-import 'main.dart';
+import 'trainer_main.dart';
 
-class Trainermain extends StatefulWidget {
-  Trainermain({Key key, this.title}) : super(key: key);
+class ProgressStatus extends StatefulWidget {
+  ProgressStatus({Key key, this.title}) : super(key: key);
   final String title;
 
   @override
-  TrainerMainState createState() => TrainerMainState();
+  ProgressStatusState createState() => ProgressStatusState();
 }
 
-class TrainerMainState extends State<Trainermain> {
+class ProgressStatusState extends State<ProgressStatus> {
+  String dropdownValue = '현황';
   @override
   void initState() {
     super.initState();
@@ -21,15 +23,11 @@ class TrainerMainState extends State<Trainermain> {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return MaterialApp(
-        title: '관리자 메인 페이지',
+        title: '진행현황 페이지',
         debugShowCheckedModeBanner: false,
         home: Scaffold(
-          appBar: AppBar(
-            title: Text('관리자 메인 페이지'),
-            centerTitle: true,
-            elevation: 0.0,
-          ),
           drawer: Drawer(
         child: ListView(
           padding: EdgeInsets.zero,
@@ -111,20 +109,24 @@ class TrainerMainState extends State<Trainermain> {
           ],
         ),
       ),
-          body: Center(
-              child: Container(
-            child: Column(
-              children: <Widget>[
-                Row(
-                  children: <Widget>[
-                    SizedBox(height: 30.0, child: Icon(Icons.account_circle)),
-                    SizedBox(height: 30.0, child: Icon(Icons.account_circle)),
-                    SizedBox(height: 30.0, child: Icon(Icons.account_circle)),
-                  ],
-                ),
+          appBar: AppBar(
+            title: Column(
+              children: [
+                Text('~님', style: TextStyle(fontSize: 25.0)),
+                GestureDetector(
+                  child: Text('진행현황', style: TextStyle(fontSize: 15.0)),
+                )
               ],
             ),
-          )),
+            elevation: 0.0,
+          ),
+          body: Container(
+            child: Column(
+              children: [
+                Text('진행현황')
+              ]
+            ),
+          ),
           bottomNavigationBar: BottomNavigationBar(
             onTap: (index) {
               setState(() {
@@ -142,8 +144,8 @@ class TrainerMainState extends State<Trainermain> {
                 icon: Icon(Icons.chat),
               ),
               BottomNavigationBarItem(
-                title: Text('명단'),
-                icon: Icon(Icons.assignment_ind),
+                icon: Icon(Icons.notifications),
+                title: Text('알림'),
               ),
             ],
           ),

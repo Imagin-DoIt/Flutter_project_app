@@ -3,7 +3,7 @@ import 'package:flutter_calendar_week/flutter_calendar_week.dart';
 import 'eat.dart';
 import 'exercisememo.dart';
 import 'member_my_schedule.dart';
-import 'main.dart';
+import '../main.dart';
 import 'member_chart.dart';
 import 'member_reserve.dart';
 
@@ -106,8 +106,8 @@ class MemberMainState extends State<Membermain> {
                     ListTile(
                         title: Text('식단기록'),
                         onTap: () {
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => Eat()));
+                          Navigator.of(context).push(
+                              MaterialPageRoute(builder: (context) => Eat()));
                         }),
                   ],
                 ),
@@ -117,20 +117,18 @@ class MemberMainState extends State<Membermain> {
                     color: Colors.grey[850],
                   ),
                   title: Text('설정'),
-                  trailing: Icon(Icons.arrow_drop_down),
                 ),
-                ExpansionTile(
+                ListTile(
                     leading: Icon(
                       Icons.exit_to_app,
                       color: Colors.grey[850],
                     ),
                     title: Text('로그아웃'),
-                    children: <Widget>[
-                      ListTile(onTap: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => Mainscreen()));
-                      })
-                    ]),
+                    onTap: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => Mainscreen()));
+                    }
+                 ),
               ],
             ),
           ),
