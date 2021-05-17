@@ -66,7 +66,7 @@ class CurrentSituationState extends State<CurrentSituation> {
                         title: Text('일정'),
                         onTap: () {
                           Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => DynamicEvent()));
+                              builder: (context) => Trainermain()));
                         }),
                     ListTile(
                         title: Text('관리'),

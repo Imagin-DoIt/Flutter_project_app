@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_firebase/trainer/calendar.dart';
 import 'Customer_list.dart';
 import 'Q_A.dart';
 import '../main.dart';
@@ -67,7 +68,7 @@ class TrainerMainState extends State<Trainermain> {
                         title: Text('일정'),
                         onTap: () {
                           Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => Trainermain()));
+                              builder: (context) => DynamicEvent()));
                         }),
                     ListTile(
                         title: Text('관리'),
