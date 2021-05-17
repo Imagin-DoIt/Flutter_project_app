@@ -56,7 +56,7 @@ class _DynamicEventState extends State<DynamicEvent> {
       appBar: AppBar(
         automaticallyImplyLeading: false,
         backgroundColor: Colors.black,
-        title: Text('Flutter Dynamic Event Calendar'),
+        title: Text('~님 일정'),
       ),
       body: SingleChildScrollView(
         child: Column(
