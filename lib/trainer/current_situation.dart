@@ -133,7 +133,26 @@ class CurrentSituationState extends State<CurrentSituation> {
             elevation: 0.0,
           ),
           body: Container(
-            child: Column(children: [Icon(Icons.circle),Text('센터 등록일:2021.02.03~2021.05.03'),Text('결제금액:15만원')]),
+            child: Column(children: [
+              Row(children: [
+                Icon(Icons.circle, size: 12.0),
+                Text('센터 등록일: 2021.05.03~2021.08.03 ',
+                    style: TextStyle(fontSize: 18.0)),
+                Text('결제금액: 15만원', style: TextStyle(fontSize: 18.0))
+              ]),
+              Row(children: [
+                Icon(Icons.circle, size: 12.0),
+                Text('센터 등록일: 2021.02.02~2021.05.02 ',
+                    style: TextStyle(fontSize: 18.0)),
+                Text('결제금액: 15만원', style: TextStyle(fontSize: 18.0))
+              ]),
+              Row(children: [
+                Icon(Icons.circle, size: 12.0),
+                Text('센터 등록일: 2021.11.01~2021.02.01 ',
+                    style: TextStyle(fontSize: 18.0)),
+                Text('결제금액: 15만원', style: TextStyle(fontSize: 18.0))
+              ])
+            ]),
           ),
           bottomNavigationBar: BottomNavigationBar(
             onTap: (index) {
