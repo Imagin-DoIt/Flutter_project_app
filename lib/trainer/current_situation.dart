@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_firebase/trainer/calendar.dart';
-import 'package:flutter_neat_and_clean_calendar/flutter_neat_and_clean_calendar.dart';
 import '../main.dart';
 import 'Customer_list.dart';
 import 'Q_A.dart';
@@ -135,7 +133,7 @@ class CurrentSituationState extends State<CurrentSituation> {
             elevation: 0.0,
           ),
           body: Container(
-            child: Column(children: [Text('현황')]),
+            child: Column(children: [Icon(Icons.circle),Text('센터 등록일:2021.02.03~2021.05.03'),Text('결제금액:15만원')]),
           ),
           bottomNavigationBar: BottomNavigationBar(
             onTap: (index) {

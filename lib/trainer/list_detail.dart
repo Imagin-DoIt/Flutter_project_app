@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'Progress_status.dart';
 import 'current_situation.dart';
 import 'd_record.dart';
 import 'e_record.dart';
@@ -153,19 +152,6 @@ class ListDetailState extends State<ListDetail> {
                     onPressed: () {
                       Navigator.of(context).push(
                           MaterialPageRoute(builder: (context) => DRecord()));
-                    },
-                    color: Colors.white,
-                    textColor: Colors.black,
-                    hoverColor: Colors.black87),
-                RaisedButton(
-                    child: Row(
-                      children: [
-                        Text('진행현황'),
-                      ],
-                    ),
-                    onPressed: () {
-                      Navigator.of(context).push(
-                          MaterialPageRoute(builder: (context) => ProgressStatus()));
                     },
                     color: Colors.white,
                     textColor: Colors.black,
