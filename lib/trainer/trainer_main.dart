@@ -71,12 +71,6 @@ class TrainerMainState extends State<Trainermain> {
                               builder: (context) => Calendar()));
                         }),
                     ListTile(
-                        title: Text('관리'),
-                        onTap: () {
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => Trainermain()));
-                        }),
-                    ListTile(
                         title: Text('신청현황'),
                         onTap: () {
                           Navigator.of(context).push(MaterialPageRoute(

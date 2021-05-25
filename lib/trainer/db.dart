@@ -14,8 +14,7 @@ abstract class DB {
       String _path = await getDatabasesPath();
       String _dbpath = p.join(_path, 'cal1.db');
 
-      _db = await openDatabase(_dbpath,
-          version: _version, onCreate: onCreate);
+      _db = await openDatabase(_dbpath, version: _version, onCreate: onCreate);
       print(_version);
     } catch (ex) {
       print(ex);
@@ -24,14 +23,14 @@ abstract class DB {
 
   static FutureOr<void> onCreate(Database db, int version) async {
     await db.execute(
-      'CREATE TABLE events (id INTEGER PRIMARY KEY NOT NULL, name STRING, date STRING, setCounter INTEGER)');
+        'CREATE TABLE events (id INTEGER PRIMARY KEY NOT NULL, name STRING, date STRING, setCounter INTEGER)');
   }
 
   static Future<List<Map<String, dynamic>>> query(String table) async =>
-    await _db.query(table);
+      await _db.query(table);
 
   static Future<int> insert(String table, CalendarItem item) async =>
-    await _db.insert(table, item.toMap());
+      await _db.insert(table, item.toMap());
 
   static Future<int> delete(String table, CalendarItem item) async =>
       await _db.delete(table, where: 'id = ?', whereArgs: [item.id]);
