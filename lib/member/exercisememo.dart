@@ -69,6 +69,7 @@ Widget build(BuildContext context) {
                   });
                 },
         ),
+        margin : const EdgeInsets.all(35),
               ),
                _pages[_index],
         ]
@@ -100,11 +101,16 @@ Widget build(BuildContext context) {
 }
 
 class Page1 extends StatelessWidget {
+
 @override
  Widget build(BuildContext context) {
         return Center(
-           child: Column(
+           child: Container(
+             child: Column(
                 children: <Widget>[
+                  Container(
+                    child: Column(
+                      children: <Widget> [
             RaisedButton(
                 child: Text('오늘의 운동 추가하기'),
                 onPressed: clickMe,
@@ -116,9 +122,13 @@ class Page1 extends StatelessWidget {
                 onPressed: clickMe,
                 textColor: Colors.white,
                 color: Colors.blue,
+            )
+            ]
+            )
             ),
-
-            Column(
+            
+          Container(
+            child: Column(
            mainAxisSize: MainAxisSize.max,
            mainAxisAlignment: MainAxisAlignment.end,
            children: [
@@ -128,9 +138,14 @@ class Page1 extends StatelessWidget {
            Text(
             '데드리프트 4세트 30kg',
            ),
+           Text(
+            '레그프레스 4세트 30kg',
+           ),
        ],
-    ),
-    Column( 
+    ),),
+    
+    Container(
+      child: Column( 
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
             TextField(
@@ -147,10 +162,11 @@ class Page1 extends StatelessWidget {
         )
         ],
     ),
+             )
                 ]
         ),
            
-      );
+      ));
                 
     }
 

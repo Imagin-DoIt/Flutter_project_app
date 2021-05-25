@@ -109,7 +109,7 @@ class MemberMainState extends State<Membermain> {
                         title: Text('식단기록'),
                         onTap: () {
                           Navigator.of(context).push(
-                              MaterialPageRoute(builder: (context) => Eat()));
+                              MaterialPageRoute(builder: (context) => Setting()));
                         }),
                   ],
                 ),
@@ -224,6 +224,9 @@ class MemberMainState extends State<Membermain> {
           ),
         ));
   }
+}
+
+class Eat {
 }
 showAlertDialog(BuildContext context) {
   var dialog = CustomAlertDialog(
