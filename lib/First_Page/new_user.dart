@@ -27,30 +27,29 @@ class NewuserState extends State<Newuser> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
-                TextFormField(
-                  initialValue: '',
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'Name',
-                  ),
-                ),
-                TextFormField(
-                  keyboardType: TextInputType.emailAddress,
-                  initialValue: '',
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'ID',
-                  ),
-                ),
-                Text('비밀번호'),
-                TextFormField(
-                  initialValue: '',
-                  obscureText: true,
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'Password',
-                  ),
-                ),
+            TextFormField(
+              initialValue: '',
+              decoration: InputDecoration(
+                border: OutlineInputBorder(),
+                labelText: 'Name',
+              ),
+            ),
+            TextFormField(
+              keyboardType: TextInputType.emailAddress,
+              initialValue: '',
+              decoration: InputDecoration(
+                border: OutlineInputBorder(),
+                labelText: 'ID',
+              ),
+            ),
+            TextFormField(
+              initialValue: '',
+              obscureText: true,
+              decoration: InputDecoration(
+                border: OutlineInputBorder(),
+                labelText: 'Password',
+              ),
+            ),
             DropdownButton(
               value: _selectedValue,
               items: _valueList.map(

@@ -25,6 +25,7 @@ class QAState extends State<QA> {
   var _index = 0;
   List<BoardListObject> _listData = [
     BoardListObject(title: "자주하는 Q&A"),
+    
     BoardListObject(title: "Q&A"),
   ];
 

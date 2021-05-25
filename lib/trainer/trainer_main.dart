@@ -4,6 +4,7 @@ import 'package:flutter_firebase/trainer/calendar.dart';
 import 'Customer_list.dart';
 import 'Q_A.dart';
 import '../main.dart';
+import 'apply.dart';
 
 class Trainermain extends StatefulWidget {
   Trainermain({Key key, this.title}) : super(key: key);
@@ -74,8 +75,8 @@ class TrainerMainState extends State<Trainermain> {
                     ListTile(
                         title: Text('신청현황'),
                         onTap: () {
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => Trainermain()));
+                          Navigator.of(context).push(
+                              MaterialPageRoute(builder: (context) => Apply()));
                         }),
                   ],
                 ),
@@ -115,8 +116,7 @@ class TrainerMainState extends State<Trainermain> {
                     title: Text('로그아웃'),
                     onTap: () {
                       showAlertDialog(context);
-                    }
-                 ),
+                    }),
               ],
             ),
           ),
@@ -159,13 +159,14 @@ class TrainerMainState extends State<Trainermain> {
         ));
   }
 }
+
 showAlertDialog(BuildContext context) {
   var dialog = CustomAlertDialog(
       title: "Logout",
       message: "Are you sure, do you want to logout?",
       onPostivePressed: () {
-        Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => Mainscreen()));
+        Navigator.of(context)
+            .push(MaterialPageRoute(builder: (context) => Mainscreen()));
       },
       positiveBtnText: 'Yes',
       negativeBtnText: 'No');

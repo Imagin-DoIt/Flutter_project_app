@@ -7,15 +7,15 @@ import 'package:intl/intl.dart';
 import 'calendar_model.dart';
 import 'db.dart';
 
-class Calendar extends StatefulWidget {
-  Calendar({Key key, this.title}) : super(key: key);
+class Apply extends StatefulWidget {
+  Apply({Key key, this.title}) : super(key: key);
   final String title;
 
   @override
   ERecordState createState() => ERecordState();
 }
 
-class ERecordState extends State<Calendar> {
+class ERecordState extends State<Apply> {
   DateTime _selectedDay = DateTime.now();
 
   CalendarController _calendarController;
@@ -253,14 +253,14 @@ class ERecordState extends State<Calendar> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        title: '일정&관리 페이지',
+        title: '신청현황 페이지',
         home: Scaffold(
           appBar: AppBar(
             title: Column(
               children: [
                 Text('~님', style: TextStyle(fontSize: 25.0)),
                 GestureDetector(
-                  child: Text('일정&관리', style: TextStyle(fontSize: 15.0)),
+                  child: Text('신청현황', style: TextStyle(fontSize: 15.0)),
                 )
               ],
             ),
