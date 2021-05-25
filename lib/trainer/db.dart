@@ -1,8 +1,8 @@
 import 'dart:async';
-
-import 'package:flutter_firebase/trainer/calendar_model.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart' as p;
+
+import 'calendar_model.dart';
 
 abstract class DB {
   static Database _db;

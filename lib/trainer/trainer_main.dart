@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_firebase/member/Custom_Alert_Dialog.dart';
 import 'package:flutter_firebase/trainer/calendar.dart';
 import 'Customer_list.dart';
 import 'Q_A.dart';
@@ -65,16 +66,10 @@ class TrainerMainState extends State<Trainermain> {
                   title: Text('스케줄'),
                   children: <Widget>[
                     ListTile(
-                        title: Text('일정'),
+                        title: Text('일정&관리'),
                         onTap: () {
                           Navigator.of(context).push(MaterialPageRoute(
                               builder: (context) => Calendar()));
-                        }),
-                    ListTile(
-                        title: Text('관리'),
-                        onTap: () {
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => Trainermain()));
                         }),
                     ListTile(
                         title: Text('신청현황'),
@@ -119,9 +114,9 @@ class TrainerMainState extends State<Trainermain> {
                     ),
                     title: Text('로그아웃'),
                     onTap: () {
-                      Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => Mainscreen()));
-                    }),
+                      showAlertDialog(context);
+                    }
+                 ),
               ],
             ),
           ),
@@ -163,4 +158,16 @@ class TrainerMainState extends State<Trainermain> {
           ),
         ));
   }
+}
+showAlertDialog(BuildContext context) {
+  var dialog = CustomAlertDialog(
+      title: "Logout",
+      message: "Are you sure, do you want to logout?",
+      onPostivePressed: () {
+        Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => Mainscreen()));
+      },
+      positiveBtnText: 'Yes',
+      negativeBtnText: 'No');
+  showDialog(context: context, builder: (BuildContext context) => dialog);
 }

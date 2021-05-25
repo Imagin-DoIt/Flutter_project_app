@@ -27,9 +27,6 @@ class NewuserState extends State<Newuser> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
-            Row(
-              children: <Widget>[
-                Text('이름'),
                 TextFormField(
                   initialValue: '',
                   decoration: InputDecoration(
@@ -37,11 +34,6 @@ class NewuserState extends State<Newuser> {
                     labelText: 'Name',
                   ),
                 ),
-              ],
-            ),
-            Row(
-              children: [
-                Text('아이디'),
                 TextFormField(
                   keyboardType: TextInputType.emailAddress,
                   initialValue: '',
@@ -50,10 +42,6 @@ class NewuserState extends State<Newuser> {
                     labelText: 'ID',
                   ),
                 ),
-              ],
-            ),
-            Row(
-              children: [
                 Text('비밀번호'),
                 TextFormField(
                   initialValue: '',
@@ -63,8 +51,6 @@ class NewuserState extends State<Newuser> {
                     labelText: 'Password',
                   ),
                 ),
-              ],
-            ),
             DropdownButton(
               value: _selectedValue,
               items: _valueList.map(
