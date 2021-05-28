@@ -2,16 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:intro_slider/intro_slider.dart';
 import 'package:intro_slider/slide_object.dart';
 
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: CenterList(),
-      debugShowCheckedModeBanner: false,
-    );
-  }
-}
-
 class CenterList extends StatefulWidget {
   CenterList({Key key}) : super(key: key);
 
@@ -30,92 +20,94 @@ class CenterListState extends State<CenterList> {
 
     slides.add(
       new Slide(
+        backgroundColor: Colors.white,
         title: "A 센터",
         styleTitle: TextStyle(
-          color: Color(0xff3da4ab),
+          color: Colors.black,
           fontSize: 30.0,
           fontWeight: FontWeight.bold,
           fontFamily: 'RobotoMono',
         ),
         description: "소개글",
         styleDescription: TextStyle(
-            color: Color(0xfffe9c8f),
+            color: Colors.black,
             fontSize: 20.0,
             fontStyle: FontStyle.italic,
             fontFamily: 'Raleway'),
-        marginDescription:
-            EdgeInsets.only(left: 20.0, right: 20.0, top: 20.0, bottom: 70.0),
-        centerWidget: Text("소개", style: TextStyle(color: Colors.white)),
-        pathImage: "assets/센터.jpeg",
+        pathImage: "assets/센터.jpg",
         onCenterItemPress: () {},
       ),
     );
     slides.add(
       new Slide(
+        backgroundColor: Colors.white,
         title: "B 센터",
         styleTitle: TextStyle(
-            color: Color(0xff3da4ab),
+            color: Colors.black,
             fontSize: 30.0,
             fontWeight: FontWeight.bold,
             fontFamily: 'RobotoMono'),
         description: "소개글",
         styleDescription: TextStyle(
-            color: Color(0xfffe9c8f),
+            color: Colors.black,
             fontSize: 20.0,
             fontStyle: FontStyle.italic,
             fontFamily: 'Raleway'),
-        pathImage: "assets/센터.jpeg",
+        pathImage: "assets/센터.jpg",
       ),
     );
     slides.add(
       new Slide(
+        backgroundColor: Colors.white,
         title: "C 센터",
         styleTitle: TextStyle(
-            color: Color(0xff3da4ab),
+            color: Colors.black,
             fontSize: 30.0,
             fontWeight: FontWeight.bold,
             fontFamily: 'RobotoMono'),
         description: "소개글",
         styleDescription: TextStyle(
-            color: Color(0xfffe9c8f),
+            color: Colors.black,
             fontSize: 20.0,
             fontStyle: FontStyle.italic,
             fontFamily: 'Raleway'),
-        pathImage: "assets/센터.jpeg",
+        pathImage: "assets/센터.jpg",
       ),
     );
     slides.add(
       new Slide(
-        title: "E 센터",
+        backgroundColor: Colors.white,
+        title: "D 센터",
         styleTitle: TextStyle(
-            color: Color(0xff3da4ab),
+            color: Colors.black,
             fontSize: 30.0,
             fontWeight: FontWeight.bold,
             fontFamily: 'RobotoMono'),
         description: "소개글",
         styleDescription: TextStyle(
-            color: Color(0xfffe9c8f),
+            color: Colors.black,
             fontSize: 20.0,
             fontStyle: FontStyle.italic,
             fontFamily: 'Raleway'),
-        pathImage: "assets/센터.jpeg",
+        pathImage: "assets/센터.jpg",
       ),
     );
     slides.add(
       new Slide(
+        backgroundColor: Colors.white,
         title: "E 센터",
         styleTitle: TextStyle(
-            color: Color(0xff3da4ab),
+            color: Colors.black,
             fontSize: 30.0,
             fontWeight: FontWeight.bold,
             fontFamily: 'RobotoMono'),
         description: "소개글",
         styleDescription: TextStyle(
-            color: Color(0xfffe9c8f),
+            color: Colors.black,
             fontSize: 20.0,
             fontStyle: FontStyle.italic,
             fontFamily: 'Raleway'),
-        pathImage: "assets/센터.jpeg",
+        pathImage: "assets/센터.jpg",
       ),
     );
   }
@@ -131,7 +123,7 @@ class CenterListState extends State<CenterList> {
   Widget renderNextBtn() {
     return Icon(
       Icons.navigate_next,
-      color: Color(0xffD02090),
+      color: Colors.black87,
       size: 35.0,
     );
   }
@@ -139,14 +131,14 @@ class CenterListState extends State<CenterList> {
   Widget renderDoneBtn() {
     return Icon(
       Icons.done,
-      color: Color(0xffD02090),
+      color: Colors.black87,
     );
   }
 
   Widget renderSkipBtn() {
     return Icon(
       Icons.skip_next,
-      color: Color(0xffD02090),
+      color: Colors.black87,
     );
   }
 
@@ -171,13 +163,13 @@ class CenterListState extends State<CenterList> {
       highlightColorDoneBtn: Color(0xff000000),
 
       // Dot indicator
-      colorDot: Color(0x33D02090),
-      colorActiveDot: Color(0xffD02090),
+      colorDot: Colors.black12,
+      colorActiveDot: Colors.black54,
       sizeDot: 13.0,
 
       // Show or hide status bar
       hideStatusBar: true,
-      backgroundColorAllSlides: Colors.grey,
+      backgroundColorAllSlides: Colors.black,
     );
   }
 }
