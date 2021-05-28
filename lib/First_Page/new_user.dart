@@ -13,7 +13,7 @@ class NewuserState extends State<Newuser> {
     super.initState();
   }
 
-  final _valueList = ['A센터', 'B센터', 'C센터'];
+  final _valueList = ['A센터', 'B센터', 'C센터','D센터','E센터'];
   var _selectedValue = 'A센터';
 
   @override

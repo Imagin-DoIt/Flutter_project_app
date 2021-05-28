@@ -46,6 +46,7 @@ dependencies:
   boardview:
   sqflite:
   google_fonts:
+  intro_slider: ^2.4.3
 
 dev_dependencies:
   flutter_test:
@@ -69,6 +70,7 @@ flutter:
     - assets/food1.jpg
     - assets/food2.jpg
     - assets/food3.jpg
+    - assets/photo_museum.png
 
 
   # An image asset can refer to one or more resolution-specific "variants", see
