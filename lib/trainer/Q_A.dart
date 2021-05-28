@@ -3,11 +3,8 @@ import 'package:boardview/board_list.dart';
 import 'package:boardview/boardview_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:boardview/boardview.dart';
-import '../main.dart';
 import 'BoardItemObject.dart';
 import 'BoardListObject.dart';
-import 'Customer_list.dart';
-import 'trainer_main.dart';
 
 class QA extends StatefulWidget {
   QA({Key key, this.title}) : super(key: key);
@@ -25,7 +22,6 @@ class QAState extends State<QA> {
   var _index = 0;
   List<BoardListObject> _listData = [
     BoardListObject(title: "자주하는 Q&A"),
-    
     BoardListObject(title: "Q&A"),
   ];
 
