@@ -38,13 +38,16 @@ class CurrentSituationState extends State<CurrentSituation> {
             padding: EdgeInsets.all(15),
             child:
                 Column(mainAxisAlignment: MainAxisAlignment.start, children: [
-                  Container(
-              child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                Icon(Icons.circle, size: 20.0),
-                Text('센터 등록일: 2021.05.03~2021.08.03 ',
-                    style: TextStyle(fontSize: 18.0)),
-                Text('결제금액: 15만원', style: TextStyle(fontSize: 18.0)),
-              ]),),
+              Container(
+                child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Icon(Icons.circle, size: 20.0),
+                      Text('센터 등록일: 2021.05.03~2021.08.03 ',
+                          style: TextStyle(fontSize: 18.0)),
+                      Text('결제금액: 15만원', style: TextStyle(fontSize: 18.0)),
+                    ]),
+              ),
               Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                 Icon(Icons.circle, size: 20.0),
                 Text('센터 등록일: 2021.02.02~2021.05.02 ',
