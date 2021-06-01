@@ -308,7 +308,7 @@ class DRecordState extends State<DRecord> {
                 icon: Icon(Icons.chat),
               ),
               BottomNavigationBarItem(
-                icon: Icon(Icons.notifications),
+                icon: Icon(Icons.alarm),
                 title: Text('알림'),
               ),
             ],

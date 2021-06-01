@@ -71,7 +71,7 @@ class QAState extends State<QA> {
               ),
               BottomNavigationBarItem(
                 title: Text('알림'),
-                icon: Icon(Icons.notifications),
+                icon: Icon(Icons.alarm),
               ),
             ],
           ),

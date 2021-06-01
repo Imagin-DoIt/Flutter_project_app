@@ -95,7 +95,7 @@ class ListDetailState extends State<ListDetail> {
                 icon: Icon(Icons.chat),
               ),
               BottomNavigationBarItem(
-                icon: Icon(Icons.notifications),
+                icon: Icon(Icons.alarm),
                 title: Text('알림'),
               ),
             ],

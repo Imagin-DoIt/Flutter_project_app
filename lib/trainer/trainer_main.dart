@@ -151,8 +151,8 @@ class TrainerMainState extends State<Trainermain> {
                 icon: Icon(Icons.chat),
               ),
               BottomNavigationBarItem(
-                title: Text('명단'),
-                icon: Icon(Icons.assignment_ind),
+                title: Text('알림'),
+                icon: Icon(Icons.alarm),
               ),
             ],
           ),

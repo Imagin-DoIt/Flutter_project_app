@@ -86,7 +86,7 @@ class CurrentSituationState extends State<CurrentSituation> {
                 icon: Icon(Icons.chat),
               ),
               BottomNavigationBarItem(
-                icon: Icon(Icons.notifications),
+                icon: Icon(Icons.alarm),
                 title: Text('알림'),
               ),
             ],
