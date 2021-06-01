@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-
-import 'calendar_model.dart';
 
 class CurrentSituation extends StatefulWidget {
   CurrentSituation({Key key, this.title}) : super(key: key);
@@ -35,10 +32,6 @@ class CurrentSituationState extends State<CurrentSituation> {
                 )
               ],
             ),
-            actions: [
-              IconButton(
-                  icon: Icon(Icons.add), onPressed: () => _create(context))
-            ],
             elevation: 0.0,
           ),
           body: Container(
@@ -94,83 +87,3 @@ class CurrentSituationState extends State<CurrentSituation> {
         ));
   }
 }
-
-void _create(BuildContext context) {
-  String _name = "";
-  var content = TextField(
-    style: GoogleFonts.montserrat(
-        color: Color.fromRGBO(105, 105, 108, 1), fontSize: 16),
-    autofocus: true,
-    decoration: InputDecoration(
-      labelStyle: GoogleFonts.montserrat(
-          color: Color.fromRGBO(59, 57, 60, 1),
-          fontSize: 18,
-          fontWeight: FontWeight.normal),
-      labelText: '현황기록',
-    ),
-    onChanged: (value) {
-      _name = value;
-    },
-  );
-  var btn = FlatButton(
-    child: Text('Save',
-        style: GoogleFonts.montserrat(
-            color: Color.fromRGBO(59, 57, 60, 1),
-            fontSize: 16,
-            fontWeight: FontWeight.bold)),
-    onPressed: () => _addEvent(_name),
-  );
-  var cancelButton = FlatButton(
-      child: Text('Cancel',
-          style: GoogleFonts.montserrat(
-              color: Color.fromRGBO(59, 57, 60, 1),
-              fontSize: 16,
-              fontWeight: FontWeight.bold)),
-      onPressed: () => Navigator.of(context).pop(false));
-  showDialog(
-    context: context,
-    builder: (BuildContext context) => Dialog(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(6),
-      ),
-      elevation: 0.0,
-      backgroundColor: Colors.transparent,
-      child: Stack(
-        children: <Widget>[
-          Container(
-            padding: EdgeInsets.all(6),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              shape: BoxShape.rectangle,
-              borderRadius: BorderRadius.circular(6),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black26,
-                  blurRadius: 10.0,
-                  offset: const Offset(0.0, 10.0),
-                ),
-              ],
-            ),
-            child: Column(
-              mainAxisSize: MainAxisSize.min, // To make the card compact
-              children: <Widget>[
-                SizedBox(height: 16.0),
-                Text("Add Event",
-                    style: GoogleFonts.montserrat(
-                        color: Color.fromRGBO(59, 57, 60, 1),
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold)),
-                Container(padding: EdgeInsets.all(20), child: content),
-                Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: <Widget>[btn, cancelButton]),
-              ],
-            ),
-          ),
-        ],
-      ),
-    ),
-  );
-}
-
-void _addEvent(String event) async {}
