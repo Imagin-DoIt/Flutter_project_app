@@ -152,7 +152,7 @@ class MemberMainState extends State<Membermain> {
                 ]),
                 child: CalendarWeek(
                   controller: _controller,
-                  height: 100,
+                  height: 105,
                   showMonth: true,
                   minDate: DateTime.now().add(
                     Duration(days: -365),
