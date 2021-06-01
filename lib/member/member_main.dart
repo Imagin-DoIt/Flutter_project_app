@@ -108,22 +108,21 @@ class MemberMainState extends State<Membermain> {
                     ListTile(
                         title: Text('식단기록'),
                         onTap: () {
-                          Navigator.of(context).push(
-                              MaterialPageRoute(builder: (context) => Setting()));
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => MyHomePage()));
                         }),
                   ],
                 ),
                 ListTile(
-                  leading: Icon(
-                    Icons.settings,
-                    color: Colors.grey[850],
-                  ),
-                  title: Text('설정'),
-                  onTap: () {
-                          Navigator.of(context).push(
-                              MaterialPageRoute(builder: (context) => Setting()));
-                        }
-                ),
+                    leading: Icon(
+                      Icons.settings,
+                      color: Colors.grey[850],
+                    ),
+                    title: Text('설정'),
+                    onTap: () {
+                      Navigator.of(context).push(
+                          MaterialPageRoute(builder: (context) => Setting()));
+                    }),
                 ListTile(
                     leading: Icon(
                       Icons.exit_to_app,
@@ -132,8 +131,7 @@ class MemberMainState extends State<Membermain> {
                     title: Text('로그아웃'),
                     onTap: () {
                       showAlertDialog(context);
-                    }
-                 ),
+                    }),
               ],
             ),
           ),
@@ -226,18 +224,17 @@ class MemberMainState extends State<Membermain> {
   }
 }
 
-class Eat {
-}
+class Eat {}
+
 showAlertDialog(BuildContext context) {
   var dialog = CustomAlertDialog(
       title: "Logout",
       message: "Are you sure, do you want to logout?",
       onPostivePressed: () {
-        Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => Mainscreen()));
+        Navigator.of(context)
+            .push(MaterialPageRoute(builder: (context) => Mainscreen()));
       },
       positiveBtnText: 'Yes',
       negativeBtnText: 'No');
   showDialog(context: context, builder: (BuildContext context) => dialog);
 }
-

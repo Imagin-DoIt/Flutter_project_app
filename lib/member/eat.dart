@@ -3,26 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
 final PictureLists = [
-  'assets/음식1.jpg',
-  'assets/음식2.jpg',
-  'assets/음식3.jpg',
+  'assets/food1.jpg',
+  'assets/food2.jpg',
+  'assets/food3.jpg',
 ];
-
-void main() => runApp(MyApp());
-
-class MyApp extends StatelessWidget {
-  @override 
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: '운동관리어플',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-     home: MyHomePage(),
-    );
-  }
-}
 
 class MyHomePage extends StatefulWidget {
   @override
@@ -47,17 +31,6 @@ class _MyHomePageState extends State<MyHomePage> {
           style: TextStyle(color: Colors.black),
         ),
         centerTitle: true,
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(
-              Icons.add_alert,
-              color: Colors.black,
-            ),
-            onPressed: () {
-              print('add_alert button is clicked');
-            },
-          ),
-        ],
       ),
       body: _pages[_index],
       bottomNavigationBar: BottomNavigationBar(
@@ -208,9 +181,8 @@ class Page1 extends StatelessWidget {
 
   Widget _buildMiddle() {
     return CarouselSlider(
-       height: 500,
-       autoPlay: true,    
-    
+      height: 500,
+      autoPlay: true,
       items: PictureLists.map((url) {
         return Builder(
           builder: (BuildContext context) {
@@ -230,7 +202,6 @@ class Page1 extends StatelessWidget {
       }).toList(),
     );
   }
-
 
   Widget _buildBottom() {
     final items = List.generate(3, (i) {
