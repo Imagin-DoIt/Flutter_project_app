@@ -264,30 +264,33 @@ class ERecordState extends State<ERecord> {
                 )
               ],
             ),
-            actions: [IconButton(icon: Icon(Icons.add), onPressed: ()=> _create(context))],
+            actions: [
+              IconButton(
+                  icon: Icon(Icons.add), onPressed: () => _create(context))
+            ],
           ),
           backgroundColor: Colors.white30,
-      body: ListView(
-        //crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Container(
-            padding: EdgeInsets.all(15),
-            child: Row(
-              children: [
-                Text("Calendar",
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 22,
-                        fontWeight: FontWeight.bold)),
-              ],
-            ),
+          body: ListView(
+            //crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Container(
+                padding: EdgeInsets.all(15),
+                child: Row(
+                  children: [
+                    Text("Calendar",
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 22,
+                            fontWeight: FontWeight.bold)),
+                  ],
+                ),
+              ),
+              calendar(),
+              eventTitle(),
+              Column(children: _eventWidgets),
+              SizedBox(height: 60)
+            ],
           ),
-          calendar(),
-          eventTitle(),
-          Column(children: _eventWidgets),
-          SizedBox(height: 60)
-        ],
-      ),
           bottomNavigationBar: BottomNavigationBar(
             onTap: (index) {
               setState(() {
