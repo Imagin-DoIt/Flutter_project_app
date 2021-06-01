@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:date_picker_timeline/date_picker_timeline.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class Exercise extends StatefulWidget {
   @override
@@ -15,7 +17,7 @@ class ExerciseState extends State<Exercise> {
   void initState() {
     super.initState();
   }
-
+  
   var _index = 0;
   var _pages = [
     Page1(),
@@ -86,7 +88,9 @@ class ExerciseState extends State<Exercise> {
   }
 }
 
+
 class Page1 extends StatelessWidget {
+  
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -96,13 +100,13 @@ class Page1 extends StatelessWidget {
           child: Column(children: <Widget>[
             RaisedButton(
               child: Text('오늘의 운동 추가하기'),
-              onPressed: clickMe,
+              onPressed:()=> _create(context),
               textColor: Colors.white,
               color: Colors.black,
             ),
             FlatButton(
               child: Text('이전 운동 기록 불러오기'),
-              onPressed: clickMe,
+              onPressed: ()=> _create(context),
               textColor: Colors.white,
               color: Colors.blue,
             )
@@ -149,9 +153,28 @@ class Page1 extends StatelessWidget {
     ));
   }
 
+  void _create(BuildContext context) {
+    String _name = "";
+    var content = TextField(
+      style: GoogleFonts.montserrat(
+          color: Color.fromRGBO(105, 105, 108, 1), fontSize: 16),
+      autofocus: true,
+      decoration: InputDecoration(
+        labelStyle: GoogleFonts.montserrat(
+            color: Color.fromRGBO(59, 57, 60, 1),
+            fontSize: 18,
+            fontWeight: FontWeight.normal),
+        labelText: 'Workout Name',
+      ),
+      onChanged: (value) {
+        _name = value;
+      },
+    );
+
   void clickMe() {
     print('clicked!');
   }
+}
 }
 
 class Page2 extends StatelessWidget {

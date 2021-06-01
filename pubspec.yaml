@@ -44,9 +44,9 @@ dependencies:
   alert: ^2.0.0
   cool_alert: ^1.1.0
   boardview:
-  sqflite:
   google_fonts:
   intro_slider: ^2.4.3
+  sqflite: ^2.0.0+3
 
 dev_dependencies:
   flutter_test:
@@ -67,9 +67,9 @@ flutter:
   assets:
     - assets/connie1.jpg
     - assets/connie2.jpg
-    - assets/food1.jpg
-    - assets/food2.jpg
-    - assets/food3.jpg
+    - assets/FOOD1.jpg
+    - assets/FOOD2.jpg
+    - assets/FOOD3.jpg
     - assets/센터.jpg
 
 

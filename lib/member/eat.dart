@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
 final PictureLists = [
-  'assets/food1.jpg',
-  'assets/food2.jpg',
-  'assets/food3.jpg',
+  'assets/FOOD1.jpg',
+  'assets/FOOD2.jpg',
+  'assets/FOOD3.jpg',
 ];
 
 class MyHomePage extends StatefulWidget {
@@ -35,10 +35,10 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.blue,
         title: Text(
           '식단기록',
-          style: TextStyle(color: Colors.black),
+          style: TextStyle(color: Colors.white),
         ),
         centerTitle: true,
       ),
