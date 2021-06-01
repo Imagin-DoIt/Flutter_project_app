@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:date_picker_timeline/date_picker_timeline.dart';
 
-
 class Exercise extends StatefulWidget {
   @override
   ExerciseState createState() => ExerciseState();
@@ -24,7 +23,7 @@ class ExerciseState extends State<Exercise> {
     Page3(),
   ];
 
-Widget build(BuildContext context) {
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.blue,
@@ -33,48 +32,35 @@ Widget build(BuildContext context) {
           style: TextStyle(color: Colors.white),
         ),
         centerTitle: true,
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(
-              Icons.add_alert,
-              color: Colors.white,
-            ),
-            onPressed: () {
-              print('add_alert button is clicked');
+      ),
+      body: Container(
+          child: Column(children: [
+        Container(
+          child: DatePicker(
+            DateTime.now(),
+            width: 60,
+            height: 80,
+            controller: _controller,
+            initialSelectedDate: DateTime.now(),
+            selectionColor: Colors.black,
+            selectedTextColor: Colors.white,
+            inactiveDates: [
+              DateTime.now().add(Duration(days: 3)),
+              DateTime.now().add(Duration(days: 4)),
+              DateTime.now().add(Duration(days: 7))
+            ],
+            onDateChange: (date) {
+              // New date selected
+              setState(() {
+                _selectedValue = date;
+              });
             },
           ),
-        ],
-      ),
-      body:Container(
-      child: Column(
-        children: [
-        Container(
-              child: DatePicker(
-                DateTime.now(),
-                width: 60,
-                height: 80,
-                controller: _controller,
-                initialSelectedDate: DateTime.now(),
-                selectionColor: Colors.black,
-                selectedTextColor: Colors.white,
-                inactiveDates: [
-                  DateTime.now().add(Duration(days: 3)),
-                  DateTime.now().add(Duration(days: 4)),
-                  DateTime.now().add(Duration(days: 7))
-                ],
-                onDateChange: (date) {
-                  // New date selected
-                  setState(() {
-                    _selectedValue = date;
-                  });
-                },
+          margin: const EdgeInsets.all(35),
         ),
-        margin : const EdgeInsets.all(35),
-              ),
-               _pages[_index],
-        ]
-               )),
-       bottomNavigationBar: BottomNavigationBar(
+        _pages[_index],
+      ])),
+      bottomNavigationBar: BottomNavigationBar(
         onTap: (index) {
           setState(() {
             _index = index;
@@ -101,80 +87,72 @@ Widget build(BuildContext context) {
 }
 
 class Page1 extends StatelessWidget {
-
-@override
- Widget build(BuildContext context) {
-        return Center(
-           child: Container(
-             child: Column(
-                children: <Widget>[
-                  Container(
-                    child: Column(
-                      children: <Widget> [
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+        child: Container(
+      child: Column(children: <Widget>[
+        Container(
+          child: Column(children: <Widget>[
             RaisedButton(
-                child: Text('오늘의 운동 추가하기'),
-                onPressed: clickMe,
-                textColor: Colors.white,
-                color: Colors.black,
+              child: Text('오늘의 운동 추가하기'),
+              onPressed: clickMe,
+              textColor: Colors.white,
+              color: Colors.black,
             ),
             FlatButton(
-                child: Text('이전 운동 기록 불러오기'),
-                onPressed: clickMe,
-                textColor: Colors.white,
-                color: Colors.blue,
+              child: Text('이전 운동 기록 불러오기'),
+              onPressed: clickMe,
+              textColor: Colors.white,
+              color: Colors.blue,
             )
-            ]
-            )
-            ),
-            
-          Container(
-            child: Column(
-           mainAxisSize: MainAxisSize.max,
-           mainAxisAlignment: MainAxisAlignment.end,
-           children: [
-           Text(
-            '벤치프레스 3세트 20kg',
-           ),
-           Text(
-            '데드리프트 4세트 30kg',
-           ),
-           Text(
-            '레그프레스 4세트 30kg',
-           ),
-       ],
-    ),),
-    
-    Container(
-      child: Column( 
-      mainAxisAlignment: MainAxisAlignment.end,
-      children: [
-            TextField(
-            decoration: InputDecoration(
-             border: OutlineInputBorder(),
-             labelText: '메모',
-          )
+          ]),
+          margin: const EdgeInsets.fromLTRB(0, 0, 0, 35),
+        ),
+        Container(
+          child: Column(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              Text(
+                '벤치프레스 3세트 20kg',
+              ),
+              Text(
+                '데드리프트 4세트 30kg',
+              ),
+              Text(
+                '레그프레스 4세트 30kg',
+              ),
+            ],
+          ),
+          margin: const EdgeInsets.fromLTRB(0, 0, 0, 35),
+        ),
+        Container(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              TextField(
+                  decoration: InputDecoration(
+                border: OutlineInputBorder(),
+                labelText: '메모',
+              )),
+            ],
+          ),
+          margin: const EdgeInsets.fromLTRB(0, 0, 0, 35),
         ),
         TextField(
             decoration: InputDecoration(
-             border: OutlineInputBorder(),
-             labelText: '변화',
-          )
-        )
-        ],
-    ),
-             )
-                ]
-        ),
-           
-      ));
-                
-    }
+          border: OutlineInputBorder(),
+          labelText: '변화',
+        ))
+      ]),
+    ));
+  }
 
-    void clickMe() {
-        print('clicked!');
-    }
+  void clickMe() {
+    print('clicked!');
+  }
 }
-
 
 class Page2 extends StatelessWidget {
   @override
