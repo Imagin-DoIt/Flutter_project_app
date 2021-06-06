@@ -1,45 +1,31 @@
-import 'package:boardview/board_item.dart';
-import 'package:boardview/board_list.dart';
-import 'package:boardview/boardview_controller.dart';
 import 'package:flutter/material.dart';
-import 'package:boardview/boardview.dart';
-import 'BoardItemObject.dart';
-import 'BoardListObject.dart';
+import 'package:flutter/rendering.dart';
 
 class QA extends StatefulWidget {
   QA({Key key, this.title}) : super(key: key);
   final String title;
 
   @override
-  QAState createState() => QAState();
+  CurrentSituationState createState() => CurrentSituationState();
 }
-class QAState extends State<QA> {
+
+class CurrentSituationState extends State<QA> {
+  String dropdownValue = '현황';
   @override
   void initState() {
     super.initState();
   }
 
   var _index = 0;
-  List<BoardListObject> _listData = [
-    BoardListObject(title: "자주하는 Q&A"),
-    BoardListObject(title: "Q&A"),
-  ];
-
-  //Can be used to animate to different sections of the BoardView
-  BoardViewController boardViewController = new BoardViewController();
-
+  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    List<BoardList> _lists = [];
-    for (int i = 0; i < _listData.length; i++) {
-      _lists.add(_createBoardList(_listData[i]) as BoardList);
-    }
+    Size size = MediaQuery.of(context).size;
     return MaterialApp(
-      title: 'Q&A 페이지',
-        debugShowCheckedModeBanner: false,
+        title: 'Q&A 페이지',
         home: Scaffold(
-      appBar: AppBar(
-        title: Column(
+          appBar: AppBar(
+            title: Column(
               children: [
                 Text('~님', style: TextStyle(fontSize: 25.0)),
                 GestureDetector(
@@ -47,13 +33,69 @@ class QAState extends State<QA> {
                 )
               ],
             ),
-        elevation: 0.0
-      ),
-      body: BoardView(
-      lists: _lists,
-      boardViewController: boardViewController,
-    ),
-    bottomNavigationBar: BottomNavigationBar(
+            elevation: 0.0,
+          ),
+          body: ListView(children: <Widget>[
+            Center(
+                child: Text(
+              'Q&A',
+              style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+            )),
+            DataTable(
+              columns: [
+                DataColumn(
+                    label: Text('Num',
+                        style: TextStyle(
+                            fontSize: 18, fontWeight: FontWeight.bold))),
+                DataColumn(
+                    label: Text('ID',
+                        style: TextStyle(
+                            fontSize: 18, fontWeight: FontWeight.bold))),
+                DataColumn(
+                    label: Text('질문사항',
+                        style: TextStyle(
+                            fontSize: 18, fontWeight: FontWeight.bold))),
+              ],
+              rows: [
+                DataRow(cells: [
+                  DataCell(Text('1')),
+                  DataCell(Text('이**')),
+                  DataCell(Text('스트레칭...')),
+                ]),
+                DataRow(cells: [
+                  DataCell(Text('2')),
+                  DataCell(Text('박**')),
+                  DataCell(Text('운동루틴점검...')),
+                ]),
+                DataRow(cells: [
+                  DataCell(Text('3')),
+                  DataCell(Text('최**')),
+                  DataCell(Text('앱사용시...')),
+                ]),
+                DataRow(cells: [
+                  DataCell(Text('4')),
+                  DataCell(Text('김**')),
+                  DataCell(Text('식단...')),
+                ]),
+                DataRow(cells: [
+                  DataCell(Text('5')),
+                  DataCell(Text('황**')),
+                  DataCell(Text('비포에프터...')),
+                ]),
+                DataRow(cells: [
+                  DataCell(Text('6')),
+                  DataCell(Text('정**')),
+                  DataCell(Text('중간점검...')),
+                ]),
+                DataRow(cells: [
+                  DataCell(Text('7')),
+                  DataCell(Text('감**')),
+                  DataCell(Text('대체운동...')),
+                ]),
+              ],
+            ),
+          ]),
+          bottomNavigationBar: BottomNavigationBar(
             onTap: (index) {
               setState(() {
                 _index = index;
@@ -70,62 +112,11 @@ class QAState extends State<QA> {
                 icon: Icon(Icons.chat),
               ),
               BottomNavigationBarItem(
-                title: Text('알림'),
                 icon: Icon(Icons.alarm),
+                title: Text('알림'),
               ),
             ],
           ),
-    ),);
-  }
-
-  Widget buildBoardItem(BoardItemObject itemObject) {
-    return BoardItem(
-        onStartDragItem:
-            (int listIndex, int itemIndex, BoardItemState state) {},
-        onDropItem: (int listIndex, int itemIndex, int oldListIndex,
-            int oldItemIndex, BoardItemState state) {
-          //Used to update our local item data
-          var item = _listData[oldListIndex].items[oldItemIndex];
-          _listData[oldListIndex].items.removeAt(oldItemIndex);
-          _listData[listIndex].items.insert(itemIndex, item);
-        },
-        onTapItem:
-            (int listIndex, int itemIndex, BoardItemState state) async {},
-        item: Card(
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(itemObject.title),
-          ),
         ));
-  }
-
-  Widget _createBoardList(BoardListObject list) {
-    List<BoardItem> items = [];
-    for (int i = 0; i < list.items.length; i++) {
-      items.insert(i, buildBoardItem(list.items[i]) as BoardItem);
-    }
-
-    return BoardList(
-      onStartDragList: (int listIndex) {},
-      onTapList: (int listIndex) async {},
-      onDropList: (int listIndex, int oldListIndex) {
-        //Update our local list data
-        var list = _listData[oldListIndex];
-        _listData.removeAt(oldListIndex);
-        _listData.insert(listIndex, list);
-      },
-      headerBackgroundColor: Color.fromARGB(255, 235, 236, 240),
-      backgroundColor: Color.fromARGB(255, 235, 236, 240),
-      header: [
-        Expanded(
-            child: Padding(
-                padding: EdgeInsets.all(5),
-                child: Text(
-                  list.title,
-                  style: TextStyle(fontSize: 20),
-                ))),
-      ],
-      items: items,
-    );
   }
 }
