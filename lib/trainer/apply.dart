@@ -1,5 +1,6 @@
 import 'dart:core';
 import 'package:flutter/material.dart';
+import 'package:flutter_firebase/trainer/trainer_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -256,6 +257,16 @@ class ERecordState extends State<Apply> {
         title: '신청현황 페이지',
         home: Scaffold(
           appBar: AppBar(
+            leading: Builder(
+              builder: (BuildContext context) {
+                return IconButton(
+                    icon: const Icon(Icons.home),
+                    onPressed: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => Trainermain()));
+                    });
+              },
+            ),
             title: Column(
               children: [
                 Text('~님', style: TextStyle(fontSize: 25.0)),
@@ -289,28 +300,6 @@ class ERecordState extends State<Apply> {
               eventTitle(),
               Column(children: _eventWidgets),
               SizedBox(height: 60)
-            ],
-          ),
-          bottomNavigationBar: BottomNavigationBar(
-            onTap: (index) {
-              setState(() {
-                _index = index;
-              });
-            },
-            currentIndex: _index,
-            items: <BottomNavigationBarItem>[
-              BottomNavigationBarItem(
-                title: Text('홈'),
-                icon: Icon(Icons.home),
-              ),
-              BottomNavigationBarItem(
-                title: Text('채팅'),
-                icon: Icon(Icons.chat),
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.alarm),
-                title: Text('알림'),
-              ),
             ],
           ),
         ));
