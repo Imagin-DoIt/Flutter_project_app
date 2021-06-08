@@ -6,6 +6,7 @@ import 'package:table_calendar/table_calendar.dart';
 import 'package:intl/intl.dart';
 import 'calendar_model.dart';
 import 'db.dart';
+import 'trainer_main.dart';
 
 class DRecord extends StatefulWidget {
   DRecord({Key key, this.title}) : super(key: key);
@@ -248,7 +249,6 @@ class DRecordState extends State<DRecord> {
     );
   }
 
-  var _index = 0;
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -256,6 +256,16 @@ class DRecordState extends State<DRecord> {
         title: '식단기록 페이지',
         home: Scaffold(
           appBar: AppBar(
+            leading: Builder(
+              builder: (BuildContext context) {
+                return IconButton(
+                    icon: const Icon(Icons.home),
+                    onPressed: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => Trainermain()));
+                    });
+              },
+            ),
             title: Column(
               children: [
                 Text('~님', style: TextStyle(fontSize: 25.0)),
@@ -289,28 +299,6 @@ class DRecordState extends State<DRecord> {
               eventTitle(),
               Column(children: _eventWidgets),
               SizedBox(height: 60)
-            ],
-          ),
-          bottomNavigationBar: BottomNavigationBar(
-            onTap: (index) {
-              setState(() {
-                _index = index;
-              });
-            },
-            currentIndex: _index,
-            items: <BottomNavigationBarItem>[
-              BottomNavigationBarItem(
-                title: Text('홈'),
-                icon: Icon(Icons.home),
-              ),
-              BottomNavigationBarItem(
-                title: Text('채팅'),
-                icon: Icon(Icons.chat),
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.alarm),
-                title: Text('알림'),
-              ),
             ],
           ),
         ));
