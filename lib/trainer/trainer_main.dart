@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_firebase/member/Custom_Alert_Dialog.dart';
+import 'package:flutter_firebase/member/setting.dart';
 import 'package:flutter_firebase/trainer/calendar.dart';
 import 'Customer_list.dart';
 import 'Q_A.dart';
@@ -101,12 +102,16 @@ class TrainerMainState extends State<Trainermain> {
                         }),
                   ],
                 ),
-                ExpansionTile(
+                ListTile(
                   leading: Icon(
                     Icons.settings,
                     color: Colors.grey[850],
                   ),
                   title: Text('설정'),
+                  onTap: () {
+                          Navigator.of(context).push(
+                              MaterialPageRoute(builder: (context) => Setting()));
+                        }
                 ),
                 ListTile(
                     leading: Icon(
