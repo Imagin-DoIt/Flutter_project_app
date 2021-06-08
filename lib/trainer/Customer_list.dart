@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'list_detail.dart';
-import '../main.dart';
-import 'Q_A.dart';
 import 'trainer_main.dart';
 
 class CustomerList extends StatefulWidget {
@@ -26,6 +24,16 @@ class CustomerListState extends State<CustomerList> {
         title: '명단 페이지',
         home: Scaffold(
           appBar: AppBar(
+            leading: Builder(
+              builder: (BuildContext context) {
+                return IconButton(
+                    icon: const Icon(Icons.home),
+                    onPressed: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => Trainermain()));
+                    });
+              },
+            ),
             title: Column(
               children: [
                 Text('~님', style: TextStyle(fontSize: 25.0)),

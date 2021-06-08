@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'trainer_main.dart';
 
 class CurrentSituation extends StatefulWidget {
   CurrentSituation({Key key, this.title}) : super(key: key);
@@ -15,7 +16,6 @@ class CurrentSituationState extends State<CurrentSituation> {
     super.initState();
   }
 
-  var _index = 0;
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -24,6 +24,16 @@ class CurrentSituationState extends State<CurrentSituation> {
         title: '현황 페이지',
         home: Scaffold(
           appBar: AppBar(
+            leading: Builder(
+              builder: (BuildContext context) {
+                return IconButton(
+                    icon: const Icon(Icons.home),
+                    onPressed: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => Trainermain()));
+                    });
+              },
+            ),
             title: Column(
               children: [
                 Text('~님', style: TextStyle(fontSize: 25.0)),
@@ -61,28 +71,6 @@ class CurrentSituationState extends State<CurrentSituation> {
                 Text('결제금액: 15만원', style: TextStyle(fontSize: 18.0))
               ])
             ]),
-          ),
-          bottomNavigationBar: BottomNavigationBar(
-            onTap: (index) {
-              setState(() {
-                _index = index;
-              });
-            },
-            currentIndex: _index,
-            items: <BottomNavigationBarItem>[
-              BottomNavigationBarItem(
-                title: Text('홈'),
-                icon: Icon(Icons.home),
-              ),
-              BottomNavigationBarItem(
-                title: Text('채팅'),
-                icon: Icon(Icons.chat),
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.alarm),
-                title: Text('알림'),
-              ),
-            ],
           ),
         ));
   }

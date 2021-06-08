@@ -22,6 +22,7 @@ class TrainerMainState extends State<Trainermain> {
   }
 
   var _index = 0;
+  var _pages = [Page1(), Page2(), Page3()];
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -103,16 +104,15 @@ class TrainerMainState extends State<Trainermain> {
                   ],
                 ),
                 ListTile(
-                  leading: Icon(
-                    Icons.settings,
-                    color: Colors.grey[850],
-                  ),
-                  title: Text('설정'),
-                  onTap: () {
-                          Navigator.of(context).push(
-                              MaterialPageRoute(builder: (context) => Setting()));
-                        }
-                ),
+                    leading: Icon(
+                      Icons.settings,
+                      color: Colors.grey[850],
+                    ),
+                    title: Text('설정'),
+                    onTap: () {
+                      Navigator.of(context).push(
+                          MaterialPageRoute(builder: (context) => Setting()));
+                    }),
                 ListTile(
                     leading: Icon(
                       Icons.exit_to_app,
@@ -129,13 +129,7 @@ class TrainerMainState extends State<Trainermain> {
               child: Container(
             child: Column(
               children: <Widget>[
-                Row(
-                  children: <Widget>[
-                    SizedBox(height: 30.0, child: Icon(Icons.account_circle)),
-                    SizedBox(height: 30.0, child: Icon(Icons.account_circle)),
-                    SizedBox(height: 30.0, child: Icon(Icons.account_circle)),
-                  ],
-                ),
+                _pages[_index],
               ],
             ),
           )),
@@ -176,4 +170,45 @@ showAlertDialog(BuildContext context) {
       positiveBtnText: 'Yes',
       negativeBtnText: 'No');
   showDialog(context: context, builder: (BuildContext context) => dialog);
+}
+
+class Page1 extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Container(
+            child: Column(
+              children: <Widget>[
+                Row(
+                  children: <Widget>[
+                    SizedBox(height: 30.0, child: Icon(Icons.account_circle)),
+                    SizedBox(height: 30.0, child: Icon(Icons.account_circle)),
+                    SizedBox(height: 30.0, child: Icon(Icons.account_circle)),
+                  ],
+                ),
+              ]))
+    );
+  }
+}
+class Page2 extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Text(
+        '채팅',
+        style: TextStyle(fontSize: 40),
+      ),
+    );
+  }
+}
+class Page3 extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Text(
+        '알림',
+        style: TextStyle(fontSize: 40),
+      ),
+    );
+  }
 }
