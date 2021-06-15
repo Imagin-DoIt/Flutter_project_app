@@ -2,20 +2,47 @@ import 'package:flutter/material.dart';
 import 'First_Page/center_list.dart';
 import 'First_Page/new_user.dart';
 import 'First_Page/Counseling.dart';
-import 'trainer/trainer_login.dart';
-import 'member/member_login.dart';
+import 'login.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:kakao_flutter_sdk/all.dart';
 
-void main() {
-  runApp(MaterialApp(
-    title: 'Login Basics',
-    debugShowCheckedModeBanner: false,
-    home: Mainscreen(),
-  ));
+import 'login2.dart';
+
+Future<void> main() async {
+  KakaoContext.clientId = "a98b9e94a66b1558ae49a1d492d36f27";
+  KakaoContext.javascriptClientId = "8de5e6c3ad71dc32ff64552d5132f962";
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  runApp(Mainscreen());
 }
 
 class Mainscreen extends StatelessWidget {
+  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Flutter Demo',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      home: Scaffold(
+        body: AuthTypeSelector(),
+      ),
+    );
+  }
+}
+
+class AuthTypeSelector extends StatelessWidget {
+  void _pushPage(BuildContext context, Widget page) {
+    Navigator.of(context).push(
+      MaterialPageRoute<void>(builder: (_) => page),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    isKakaoTalkInstalled();
     return Scaffold(
       appBar: AppBar(
         title: Text('Main'),
@@ -33,7 +60,7 @@ class Mainscreen extends StatelessWidget {
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => Trainer()),
+                      MaterialPageRoute(builder: (context) => LoginPage()),
                     );
                   },
                 ),
@@ -42,7 +69,7 @@ class Mainscreen extends StatelessWidget {
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => Member()),
+                      MaterialPageRoute(builder: (context) => Login2Page()),
                     );
                   },
                 ),
