@@ -5,7 +5,7 @@ class BoardListObject{
   String title;
   List<BoardItemObject> items;
 
-  BoardListObject({required this.title,required this.items}){
+  BoardListObject({this.title,this.items}){
     if(this.title == null){
       this.title = "";
     }

@@ -1,170 +1,271 @@
+import 'dart:core';
 import 'package:flutter/material.dart';
-
-import 'package:multilevel_drawer/multilevel_drawer.dart';
-import '../main.dart';
-import 'Customer_list.dart';
-import 'Q&A2.dart';
-import 'package:flutter_neat_and_clean_calendar/flutter_neat_and_clean_calendar.dart';
-
+import 'package:google_fonts/google_fonts.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:table_calendar/table_calendar.dart';
+import 'package:intl/intl.dart';
+import 'calendar_model.dart';
+import 'db.dart';
 import 'trainer_main.dart';
 
 class ERecord extends StatefulWidget {
-  
+  ERecord({Key key, this.title}) : super(key: key);
+  final String title;
+
   @override
   ERecordState createState() => ERecordState();
 }
 
 class ERecordState extends State<ERecord> {
-  void _handleNewDate(date) {
-    setState(() {
-      _selectedDay = date;
-      _selectedEvents = _events[_selectedDay] ?? [];
-    });
-    print(_selectedEvents);
-  }
+  DateTime _selectedDay = DateTime.now();
 
-  late List _selectedEvents;
-  late DateTime _selectedDay;
+  CalendarController _calendarController;
+  Map<DateTime, List<dynamic>> _events = {};
+  List<CalendarItem> _data = [];
 
-  final Map<DateTime, List> _events = {
-    DateTime(2021, 5, 7): [
-      {'name': '운동A, 횟수', 'isDone': true},
-    ],
-    DateTime(2021, 5, 9): [
-      {'name': '운동A, 횟수', 'isDone': true},
-      {'name': '운동B, 횟수', 'isDone': true},
-    ],
-    DateTime(2021, 5, 10): [
-      {'name': '운동A, 횟수', 'isDone': true},
-      {'name': '운동B, 횟수', 'isDone': true},
-    ],
-    DateTime(2021, 5, 13): [
-      {'name': '운동A, 횟수', 'isDone': true},
-      {'name': '운동B, 횟수', 'isDone': true},
-      {'name': '운동C, 횟수', 'isDone': false},
-    ],
-    DateTime(2021, 5, 25): [
-      {'name': '운동A, 횟수', 'isDone': true},
-      {'name': '운동B, 횟수', 'isDone': true},
-      {'name': '운동C, 횟수', 'isDone': false},
-    ],
-    DateTime(2021, 6, 6): [
-      {'name': '운동A, 횟수', 'isDone': false},
-    ],
-  };
+  List<dynamic> _selectedEvents = [];
+  List<Widget> get _eventWidgets =>
+      _selectedEvents.map((e) => events(e)).toList();
 
-  @override
   void initState() {
     super.initState();
-    _selectedEvents = _events[_selectedDay] ?? [];
+    DB.init().then((value) => _fetchEvents());
+    _calendarController = CalendarController();
   }
 
-  var _index = 0;
+  void dispose() {
+    _calendarController.dispose();
+    super.dispose();
+  }
+
+  Widget events(var d) {
+    return Container(
+      padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
+      child: Container(
+          width: MediaQuery.of(context).size.width * 0.9,
+          padding: EdgeInsets.fromLTRB(0, 15, 0, 0),
+          decoration: BoxDecoration(
+              border: Border(
+            top: BorderSide(color: Theme.of(context).dividerColor),
+          )),
+          child:
+              Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+            Text(d, style: Theme.of(context).primaryTextTheme.bodyText1),
+            IconButton(
+                icon: FaIcon(
+                  FontAwesomeIcons.trashAlt,
+                  color: Colors.white,
+                  size: 15,
+                ),
+                onPressed: () => _deleteEvent(d))
+          ])),
+    );
+  }
+
+  void _onDaySelected(DateTime day, List events) {
+    setState(() {
+      _selectedDay = day;
+      _selectedEvents = events;
+    });
+  }
+
+  void _create(BuildContext context) {
+    String _name = "";
+    var content = TextField(
+      style: GoogleFonts.montserrat(
+          color: Color.fromRGBO(105, 105, 108, 1), fontSize: 16),
+      autofocus: true,
+      decoration: InputDecoration(
+        labelStyle: GoogleFonts.montserrat(
+            color: Color.fromRGBO(59, 57, 60, 1),
+            fontSize: 18,
+            fontWeight: FontWeight.normal),
+        labelText: 'Workout Name',
+      ),
+      onChanged: (value) {
+        _name = value;
+      },
+    );
+    var btn = FlatButton(
+      child: Text('Save',
+          style: GoogleFonts.montserrat(
+              color: Color.fromRGBO(59, 57, 60, 1),
+              fontSize: 16,
+              fontWeight: FontWeight.bold)),
+      onPressed: () => _addEvent(_name),
+    );
+    var cancelButton = FlatButton(
+        child: Text('Cancel',
+            style: GoogleFonts.montserrat(
+                color: Color.fromRGBO(59, 57, 60, 1),
+                fontSize: 16,
+                fontWeight: FontWeight.bold)),
+        onPressed: () => Navigator.of(context).pop(false));
+    showDialog(
+      context: context,
+      builder: (BuildContext context) => Dialog(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(6),
+        ),
+        elevation: 0.0,
+        backgroundColor: Colors.transparent,
+        child: Stack(
+          children: <Widget>[
+            Container(
+              padding: EdgeInsets.all(6),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                shape: BoxShape.rectangle,
+                borderRadius: BorderRadius.circular(6),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black26,
+                    blurRadius: 10.0,
+                    offset: const Offset(0.0, 10.0),
+                  ),
+                ],
+              ),
+              child: Column(
+                mainAxisSize: MainAxisSize.min, // To make the card compact
+                children: <Widget>[
+                  SizedBox(height: 16.0),
+                  Text("Add Event",
+                      style: GoogleFonts.montserrat(
+                          color: Color.fromRGBO(59, 57, 60, 1),
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold)),
+                  Container(padding: EdgeInsets.all(20), child: content),
+                  Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: <Widget>[btn, cancelButton]),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  void _fetchEvents() async {
+    _events = {};
+    List<Map<String, dynamic>> _results = await DB.query(CalendarItem.table);
+    _data = _results.map((item) => CalendarItem.fromMap(item)).toList();
+    _data.forEach((element) {
+      DateTime formattedDate = DateTime.parse(DateFormat('yyyy-MM-dd')
+          .format(DateTime.parse(element.date.toString())));
+      if (_events.containsKey(formattedDate)) {
+        _events[formattedDate].add(element.name.toString());
+      } else {
+        _events[formattedDate] = [element.name.toString()];
+      }
+    });
+    setState(() {});
+  }
+
+  void _addEvent(String event) async {
+    CalendarItem item =
+        CalendarItem(date: _selectedDay.toString(), name: event);
+    await DB.insert(CalendarItem.table, item);
+    _selectedEvents.add(event);
+    _fetchEvents();
+
+    Navigator.pop(context);
+  }
+
+  // Delete doesnt refresh yet, thats it, then done!
+  void _deleteEvent(String s) {
+    List<CalendarItem> d = _data.where((element) => element.name == s).toList();
+    if (d.length == 1) {
+      DB.delete(CalendarItem.table, d[0]);
+      _selectedEvents.removeWhere((e) => e == s);
+      _fetchEvents();
+    }
+  }
+
+  Widget calendar() {
+    return Container(
+        margin: EdgeInsets.fromLTRB(10, 0, 10, 10),
+        width: double.infinity,
+        decoration: BoxDecoration(
+            color: Colors.black,
+            borderRadius: BorderRadius.circular(6),
+            gradient: LinearGradient(colors: [Colors.white, Colors.white]),
+            boxShadow: <BoxShadow>[
+              BoxShadow(
+                  color: Colors.black12,
+                  blurRadius: 5,
+                  offset: new Offset(0.0, 5))
+            ]),
+        child: TableCalendar(
+          calendarStyle: CalendarStyle(
+            canEventMarkersOverflow: true,
+            markersColor: Colors.white,
+            weekdayStyle: TextStyle(color: Colors.black),
+            todayColor: Colors.black,
+            todayStyle: TextStyle(
+                color: Colors.white, fontSize: 15, fontWeight: FontWeight.bold),
+            selectedColor: Colors.black,
+            outsideWeekendStyle: TextStyle(color: Colors.white60),
+            outsideStyle: TextStyle(color: Colors.black),
+            weekendStyle: TextStyle(color: Colors.black),
+            renderDaysOfWeek: false,
+          ),
+          calendarController: _calendarController,
+          events: _events,
+          headerStyle: HeaderStyle(
+            leftChevronIcon:
+                Icon(Icons.arrow_back_ios, size: 15, color: Colors.black),
+            rightChevronIcon:
+                Icon(Icons.arrow_forward_ios, size: 15, color: Colors.black),
+            titleTextStyle:
+                GoogleFonts.montserrat(color: Colors.black, fontSize: 16),
+            formatButtonDecoration: BoxDecoration(
+              color: Colors.black,
+              borderRadius: BorderRadius.circular(20),
+            ),
+            formatButtonTextStyle: GoogleFonts.montserrat(
+                color: Colors.white, fontSize: 13, fontWeight: FontWeight.bold),
+          ),
+        ));
+  }
+
+  Widget eventTitle() {
+    if (_selectedEvents.length == 0) {
+      return Container(
+        padding: EdgeInsets.fromLTRB(15, 20, 15, 15),
+        child: Text("No events",
+            style: TextStyle(
+                color: Colors.white,
+                fontSize: 22,
+                fontWeight: FontWeight.bold)),
+      );
+    }
+    return Container(
+      padding: EdgeInsets.fromLTRB(15, 20, 15, 15),
+      child: Text("Events",
+          style: TextStyle(
+              color: Colors.white, fontSize: 22, fontWeight: FontWeight.bold)),
+    );
+  }
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
     return MaterialApp(
         title: '운동기록 페이지',
-        debugShowCheckedModeBanner: false,
         home: Scaffold(
-          drawer: MultiLevelDrawer(
-            header: Container(
-              child: Column(children: <Widget>[
-                _createHeader(),
-              ]),
-            ),
-            children: [
-              MLMenuItem(
-                leading: Icon(Icons.person),
-                trailing: Icon(Icons.arrow_right),
-                content: Text(
-                  "스케줄",
-                ),
-                subMenuItems: [
-                  MLSubmenu(
-                      onClick: () {
-                        Navigator.of(context).pop();
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => TrainerMainPage()));
-                      },
-                      submenuContent: Text("일정")),
-                  MLSubmenu(
-                      onClick: () {
-                        Navigator.of(context).pop();
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => TrainerMainPage()));
-                      },
-                      submenuContent: Text("관리")),
-                  MLSubmenu(
-                      onClick: () {
-                        Navigator.of(context).pop();
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => TrainerMainPage()));
-                      },
-                      submenuContent: Text("신청현황")),
-                ],
-                onClick: () {},
-              ),
-              MLMenuItem(
-                leading: Icon(Icons.person),
-                trailing: Icon(Icons.arrow_right),
-                content: Text(
-                  "회원관리",
-                ),
-                subMenuItems: [
-                  MLSubmenu(
-                      onClick: () {
-                        Navigator.of(context).pop();
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => CustomerList()));
-                      },
-                      submenuContent: Text("명단")),
-                  MLSubmenu(
-                      onClick: () {
-                        Navigator.of(context).pop();
-                        Navigator.of(context).push(
-                            MaterialPageRoute(builder: (context) => QA()));
-                      },
-                      submenuContent: Text("자주하는 Q&A")),
-                ],
-                onClick: () {},
-              ),
-              MLMenuItem(
-                leading: Icon(Icons.settings),
-                trailing: Icon(Icons.arrow_right),
-                content: Text(
-                  "설정",
-                ),
-                subMenuItems: [
-                  MLSubmenu(
-                      onClick: () {
-                        Navigator.of(context).pop();
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => TrainerMainPage()));
-                      },
-                      submenuContent: Text("식단")),
-                  MLSubmenu(onClick: () {
-                    Navigator.of(context).pop();
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => TrainerMainPage()));
-                  }, submenuContent: Text("운동")),
-                ],
-                onClick: () {},
-              ),
-              MLMenuItem(
-                leading: Icon(Icons.person),
-                content: Text(
-                  "로그아웃",
-                ),
-                onClick: () {
-                  Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) => MyApp()));
-                },
-              ),
-            ],
-          ),
           appBar: AppBar(
+            leading: Builder(
+              builder: (BuildContext context) {
+                return IconButton(
+                    icon: const Icon(Icons.home),
+                    onPressed: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => Trainermain()));
+                    });
+              },
+            ),
             title: Column(
               children: [
                 Text('~님', style: TextStyle(fontSize: 25.0)),
@@ -173,95 +274,33 @@ class ERecordState extends State<ERecord> {
                 )
               ],
             ),
-            elevation: 0.0,
+            actions: [
+              IconButton(
+                  icon: Icon(Icons.add), onPressed: () => _create(context))
+            ],
           ),
-          body: SafeArea(
-        child: Column(
-          mainAxisSize: MainAxisSize.max,
-          children: <Widget>[
-            Container(
-              child: Calendar(
-                startOnMonday: true,
-                weekDays: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
-                events: _events,
-                onRangeSelected: (range) =>
-                    print("Range is ${range.from}, ${range.to}"),
-                onDateSelected: (date) => _handleNewDate(date),
-                isExpandable: true,
-                eventDoneColor: Colors.green,
-                selectedColor: Colors.pink,
-                todayColor: Colors.yellow,
-                eventColor: Colors.grey,
-                dayOfWeekStyle: TextStyle(
-                    color: Colors.black,
-                    fontWeight: FontWeight.w800,
-                    fontSize: 11),
+          backgroundColor: Colors.white30,
+          body: ListView(
+            //crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Container(
+                padding: EdgeInsets.all(15),
+                child: Row(
+                  children: [
+                    Text("Calendar",
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 22,
+                            fontWeight: FontWeight.bold)),
+                  ],
+                ),
               ),
-            ),
-            _buildEventList()
-          ],
-        ),
-      ),
-          bottomNavigationBar: BottomNavigationBar(
-            onTap: (index) {
-              setState(() {
-                _index = index;
-              });
-            },
-            currentIndex: _index,
-            items: <BottomNavigationBarItem>[
-              BottomNavigationBarItem(
-                title: Text('홈'),
-                icon: Icon(Icons.home),
-              ),
-              BottomNavigationBarItem(
-                title: Text('채팅'),
-                icon: Icon(Icons.chat),
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.notifications),
-                title: Text('알림'),
-              ),
+              calendar(),
+              eventTitle(),
+              Column(children: _eventWidgets),
+              SizedBox(height: 60)
             ],
           ),
         ));
-  }
-
-  Widget _createHeader() {
-    return UserAccountsDrawerHeader(
-      currentAccountPicture: CircleAvatar(
-        backgroundImage: AssetImage('assets/con.png'),
-        backgroundColor: Colors.white,
-      ),
-      accountName: Text('CONNIE'),
-      accountEmail: Text('rladldud1109@naver.com'),
-      onDetailsPressed: () {
-        print('arrow is clicked');
-      },
-      decoration: BoxDecoration(
-          color: Colors.red[200],
-          borderRadius: BorderRadius.only(
-              bottomLeft: Radius.circular(40.0),
-              bottomRight: Radius.circular(40.0))),
-    );
-  }
-  Widget _buildEventList() {
-    return Expanded(
-      child: ListView.builder(
-        itemBuilder: (BuildContext context, int index) => Container(
-          decoration: BoxDecoration(
-            border: Border(
-              bottom: BorderSide(width: 1.5, color: Colors.black12),
-            ),
-          ),
-          padding: const EdgeInsets.symmetric(horizontal: 0.0, vertical: 4.0),
-          child: ListTile(
-            title: Text(_selectedEvents[index]['name'].toString()),
-            onTap: () {},
-          ),
-        ),
-        itemCount: _selectedEvents.length,
-      ),
-    );
   }
 }

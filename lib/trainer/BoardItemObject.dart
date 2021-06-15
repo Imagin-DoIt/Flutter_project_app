@@ -2,7 +2,7 @@ class BoardItemObject{
 
   String title;
 
-  BoardItemObject({required this.title}){
+  BoardItemObject({this.title}){
     if(this.title == null){
       this.title = "";
     }

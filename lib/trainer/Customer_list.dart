@@ -1,20 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:multilevel_drawer/multilevel_drawer.dart';
-import '../main.dart';
-import 'Q&A2.dart';
 import 'list_detail.dart';
 import 'trainer_main.dart';
 
-
 class CustomerList extends StatefulWidget {
-
+  CustomerList({Key key, this.title}) : super(key: key);
+  final String title;
 
   @override
   CustomerListState createState() => CustomerListState();
 }
 
 class CustomerListState extends State<CustomerList> {
-  String dropdownValue = '현황';
   @override
   void initState() {
     super.initState();
@@ -24,108 +20,20 @@ class CustomerListState extends State<CustomerList> {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
     return MaterialApp(
         title: '명단 페이지',
-        debugShowCheckedModeBanner: false,
         home: Scaffold(
-          drawer: MultiLevelDrawer(
-            header: Container(
-              child: Column(children: <Widget>[
-                _createHeader(),
-              ]),
-            ),
-            children: [
-              MLMenuItem(
-                leading: Icon(Icons.person),
-                trailing: Icon(Icons.arrow_right),
-                content: Text(
-                  "스케줄",
-                ),
-                subMenuItems: [
-                  MLSubmenu(
-                      onClick: () {
-                        Navigator.of(context).pop();
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => TrainerMainPage()));
-                      },
-                      submenuContent: Text("일정")),
-                  MLSubmenu(
-                      onClick: () {
-                        Navigator.of(context).pop();
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => TrainerMainPage()));
-                      },
-                      submenuContent: Text("관리")),
-                  MLSubmenu(
-                      onClick: () {
-                        Navigator.of(context).pop();
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => TrainerMainPage()));
-                      },
-                      submenuContent: Text("신청현황")),
-                ],
-                onClick: () {},
-              ),
-              MLMenuItem(
-                leading: Icon(Icons.person),
-                trailing: Icon(Icons.arrow_right),
-                content: Text(
-                  "회원관리",
-                ),
-                subMenuItems: [
-                  MLSubmenu(
-                      onClick: () {
-                        Navigator.of(context).pop();
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => CustomerList()));
-                      },
-                      submenuContent: Text("명단")),
-                  MLSubmenu(
-                      onClick: () {
-                        Navigator.of(context).pop();
-                        Navigator.of(context).push(
-                            MaterialPageRoute(builder: (context) => QA()));
-                      },
-                      submenuContent: Text("자주하는 Q&A")),
-                ],
-                onClick: () {},
-              ),
-              MLMenuItem(
-                leading: Icon(Icons.settings),
-                trailing: Icon(Icons.arrow_right),
-                content: Text(
-                  "설정",
-                ),
-                subMenuItems: [
-                  MLSubmenu(
-                      onClick: () {
-                        Navigator.of(context).pop();
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => TrainerMainPage()));
-                      },
-                      submenuContent: Text("식단")),
-                  MLSubmenu(onClick: () {
-                    Navigator.of(context).pop();
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => TrainerMainPage()));
-                  }, submenuContent: Text("운동")),
-                ],
-                onClick: () {},
-              ),
-              MLMenuItem(
-                leading: Icon(Icons.person),
-                content: Text(
-                  "로그아웃",
-                ),
-                onClick: () {
-                  Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) => MyApp()));
-                },
-              ),
-            ],
-          ),
           appBar: AppBar(
+            leading: Builder(
+              builder: (BuildContext context) {
+                return IconButton(
+                    icon: const Icon(Icons.home),
+                    onPressed: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => Trainermain()));
+                    });
+              },
+            ),
             title: Column(
               children: [
                 Text('~님', style: TextStyle(fontSize: 25.0)),
@@ -137,42 +45,58 @@ class CustomerListState extends State<CustomerList> {
             elevation: 0.0,
           ),
           body: Container(
+            padding: EdgeInsets.fromLTRB(50, 10, 50, 10),
             child: Column(
               children: [
-              RaisedButton(
-                child: Row(
-                  children: [
-                  Icon(Icons.account_circle),
-                  Text('~님'),],),
-                onPressed:() {Navigator.push(context,
-                MaterialPageRoute(builder: (context)=>ListDetail()));},
-                color: Colors.white,
-                textColor: Colors.black,
-                hoverColor: Colors.black87
-                ),
                 RaisedButton(
-                child: Row(
-                  children: [
-                  Icon(Icons.account_circle),
-                  Text('~님'),],),
-                onPressed:() {Navigator.push(context,
-                MaterialPageRoute(builder: (context)=>ListDetail()));},
-                color: Colors.white,
-                textColor: Colors.black,
-                hoverColor: Colors.black87
-                ),
+                    child: Row(
+                      children: [
+                        Icon(Icons.account_circle),
+                        Text('~님'),
+                      ],
+                    ),
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ListDetail()));
+                    },
+                    color: Colors.white,
+                    textColor: Colors.black,
+                    hoverColor: Colors.black87),
                 RaisedButton(
-                child: Row(
-                  children: [
-                  Icon(Icons.account_circle),
-                  Text('~님'),],),
-                onPressed:() {Navigator.push(context,
-                MaterialPageRoute(builder: (context)=>ListDetail()));},
-                color: Colors.white,
-                textColor: Colors.black,
-                hoverColor: Colors.black87
-                ),
-            ],
+                    child: Row(
+                      children: [
+                        Icon(Icons.account_circle),
+                        Text('~님'),
+                      ],
+                    ),
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ListDetail()));
+                    },
+                    color: Colors.white,
+                    textColor: Colors.black,
+                    hoverColor: Colors.black87),
+                RaisedButton(
+                    child: Row(
+                      children: [
+                        Icon(Icons.account_circle),
+                        Text('~님'),
+                      ],
+                    ),
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ListDetail()));
+                    },
+                    color: Colors.white,
+                    textColor: Colors.black,
+                    hoverColor: Colors.black87),
+              ],
             ),
           ),
           bottomNavigationBar: BottomNavigationBar(
@@ -192,30 +116,11 @@ class CustomerListState extends State<CustomerList> {
                 icon: Icon(Icons.chat),
               ),
               BottomNavigationBarItem(
-                icon: Icon(Icons.notifications),
+                icon: Icon(Icons.alarm),
                 title: Text('알림'),
               ),
             ],
           ),
         ));
-  }
-
-  Widget _createHeader() {
-    return UserAccountsDrawerHeader(
-      currentAccountPicture: CircleAvatar(
-        backgroundImage: AssetImage('assets/con.png'),
-        backgroundColor: Colors.white,
-      ),
-      accountName: Text('CONNIE'),
-      accountEmail: Text('rladldud1109@naver.com'),
-      onDetailsPressed: () {
-        print('arrow is clicked');
-      },
-      decoration: BoxDecoration(
-          color: Colors.red[200],
-          borderRadius: BorderRadius.only(
-              bottomLeft: Radius.circular(40.0),
-              bottomRight: Radius.circular(40.0))),
-    );
   }
 }
